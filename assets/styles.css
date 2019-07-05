@@ -1,0 +1,154 @@
+@import 'https://fonts.googleapis.com/css?family=Share+Tech+Mono';
+
+@font-face {
+  font-family: Digital;
+  src: url("https://db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.eot"),
+       url("https://db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff2") format("woff2"),
+       url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff") format("woff"),
+       url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.ttf") format("truetype");
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #c2c2d6;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.calculator {
+  --button-width: 80px;
+  --button-height: 65px;
+  --button-spacing-around: 1px;
+
+  width: calc(5 * var(--button-spacing-around) + 4 * var(--button-width));
+
+  padding: 3px;
+  border: 2px solid #47476b;
+
+  background-color: black;
+}
+
+.calculator__expr {
+  padding-bottom: 6px;
+
+  text-align: right;
+
+  font-family: Digital;
+  font-size: 20px;
+
+  color: orange;
+}
+
+.calculator__output {
+  padding-bottom: 6px;
+
+  text-align: right;
+
+  font-family: Digital;
+  font-size: 29px;
+
+  color: white;
+}
+
+.calculator__buttons {
+  position: relative;
+
+  height: calc(6 * var(--button-spacing-around) + 5 * var(--button-height));
+}
+
+.calculator__buttons button {
+  position: absolute;
+
+  width: var(--button-width);
+  height: var(--button-height);
+
+  border: 0;
+  padding: 0;
+
+  font-family: "Share Tech Mono", monospace;
+  font-size: 20px;
+
+  color: white;
+  background-color: #4d4d4d;
+
+  cursor: pointer;
+}
+
+.calculator__buttons button:hover {
+  z-index: 1;
+  outline: 0.05em solid grey;
+  color: black;
+}
+
+.calculator__buttons button.r0 {
+  top: var(--button-spacing-around);
+}
+
+.calculator__buttons button.r1 {
+  top: calc(2 * var(--button-spacing-around) + var(--button-height));
+}
+
+.calculator__buttons button.r2 {
+  top: calc(3 * var(--button-spacing-around) + 2 * var(--button-height));
+}
+
+.calculator__buttons button.r3 {
+  top: calc(4 * var(--button-spacing-around) + 3 * var(--button-height));
+}
+
+.calculator__buttons button.r4 {
+  top: calc(5 * var(--button-spacing-around) + 4 * var(--button-height));
+}
+
+.calculator__buttons button.c0 {
+  left: var(--button-spacing-around);
+}
+
+.calculator__buttons button.c1 {
+  left: calc(2 * var(--button-spacing-around) + var(--button-width));
+}
+
+.calculator__buttons button.c2 {
+  left: calc(3 * var(--button-spacing-around) + 2 * var(--button-width));
+}
+
+.calculator__buttons button.c3 {
+  left: calc(4 * var(--button-spacing-around) + 3 * var(--button-width));
+}
+
+.calculator__buttons button.rowspan2 {
+  height: calc(var(--button-spacing-around) + 2 * var(--button-height));
+}
+
+.calculator__buttons button.colspan2 {
+  width: calc(var(--button-spacing-around) + 2 * var(--button-width));
+}
+
+.calculator__buttons button.bg-red {
+  background-color: #ac3939;
+}
+
+.calculator__buttons button.bg-blue {
+  background-color: #004466;
+}
+
+.attribution {
+  margin-top: 15px;
+
+  font-family: "Share Tech Mono", monospace;
+
+  text-align: center;
+}
+
+a.attribution__link {
+  text-decoration: none;
+  color: #00264d;
+}
