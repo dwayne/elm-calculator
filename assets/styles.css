@@ -88,6 +88,10 @@ body {
   color: black;
 }
 
+.calculator__buttons button:disabled {
+  visibility: hidden;
+}
+
 .calculator__buttons button.r0 {
   top: var(--button-spacing-around);
 }
