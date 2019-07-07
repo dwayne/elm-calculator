@@ -112,7 +112,7 @@ viewCalculator calculator =
 viewAttribution : Html msg
 viewAttribution =
   footer [ class "attribution" ]
-    [ text "Developed by"
+    [ text "Developed by "
     , a [ class "attribution__link"
         , href "https://github.com/dwayne/"
         , target "_blank"
