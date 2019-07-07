@@ -7,6 +7,15 @@ module Calculator exposing
   )
 
 
+-- TODO:
+--
+-- Respect operator precedence when evaluating expressions.
+--   Yes. 1 + 2 * 3 = 1 + 6 = 7
+--    No. 1 + 2 * 3 = 3 * 3 = 9 <---- This is current behaviour.
+--
+-- The CodePen example uses JavaScript's eval.
+
+
 type Calculator
   = Start
   | Left Int
@@ -25,12 +34,14 @@ type Key
 type Operator
   = Plus
   | Minus
+  | Times
 
 
 type Expr
   = Const Int
   | Add Expr Expr
   | Sub Expr Expr
+  | Mul Expr Expr
 
 
 new : Calculator
@@ -128,6 +139,9 @@ eval expr =
     Sub a b ->
       (eval a) - (eval b)
 
+    Mul a b ->
+      (eval a) * (eval b)
+
 
 operatorToExpr : Operator -> Expr -> Expr -> Expr
 operatorToExpr op =
@@ -137,6 +151,9 @@ operatorToExpr op =
 
     Minus ->
       Sub
+
+    Times ->
+      Mul
 
 
 type alias Display =
@@ -192,6 +209,9 @@ exprToString expr =
     Sub a b ->
       (exprToString a) ++ "-" ++ (exprToString b)
 
+    Mul a b ->
+      (exprToString a) ++ "*" ++ (exprToString b)
+
 
 operatorToString : Operator -> String
 operatorToString op =
@@ -201,3 +221,6 @@ operatorToString op =
 
     Minus ->
       "-"
+
+    Times ->
+      "*"

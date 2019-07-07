@@ -75,7 +75,7 @@ viewCalculator calculator =
               [ text "AC" ]
           , button [ class "r0 c2", disabled True ]
               [ text "÷" ]
-          , button [ class "r0 c3", disabled True ]
+          , button [ class "r0 c3", onClick (Clicked (Operator Times)) ]
               [ text "×" ]
           , button [ class "r1 c0", onClick (Clicked (Digit 7)) ]
               [ text "7" ]

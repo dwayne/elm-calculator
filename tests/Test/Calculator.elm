@@ -10,7 +10,9 @@ import Calculator exposing (Key(..), Operator(..))
 suite : Test
 suite =
   describe "Calculator"
-    [ processSuite ]
+    [ processSuite
+    , operatorPrecedenceSuite
+    ]
 
 
 processSuite : Test
@@ -184,4 +186,25 @@ processSuite =
                   |> Calculator.toDisplay
                   |> Expect.equal { expr = "12+3-4=11", output = "11" }
           ]
+    ]
+
+
+operatorPrecedenceSuite : Test
+operatorPrecedenceSuite =
+  describe "operator precedence" <|
+    [ test "multiplication is done before addition" <|
+        \_ ->
+          let
+            calculator =
+              Calculator.new
+                |> Calculator.process (Digit 1)
+                |> Calculator.process (Operator Plus)
+                |> Calculator.process (Digit 2)
+                |> Calculator.process (Operator Times)
+                |> Calculator.process (Digit 3)
+                |> Calculator.process Equal
+          in
+            calculator
+              |> Calculator.toDisplay
+              |> Expect.equal { expr = "1+2*3=7", output = "7" }
     ]
