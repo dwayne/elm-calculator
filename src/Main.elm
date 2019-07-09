@@ -2,10 +2,12 @@ module Main exposing (main)
 
 
 import Browser
-import Calculator exposing (Calculator, Key(..), Operator(..))
 import Html exposing (Html, a, button, div, footer, text)
 import Html.Attributes exposing (class, disabled, href, target)
 import Html.Events exposing (onClick)
+
+import Calculator exposing (Calculator, Key(..))
+import Operator exposing (Operator(..))
 
 
 main : Program () Model Msg

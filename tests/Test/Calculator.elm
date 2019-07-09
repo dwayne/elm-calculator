@@ -4,7 +4,8 @@ module Test.Calculator exposing (suite)
 import Expect
 import Test exposing (..)
 
-import Calculator exposing (Key(..), Operator(..))
+import Calculator exposing (Key(..))
+import Operator exposing (Operator(..))
 
 
 suite : Test

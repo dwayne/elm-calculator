@@ -1,5 +1,5 @@
 module Calculator exposing
-  ( Calculator, Key(..), Operator(..)
+  ( Calculator, Key(..)
   , new, process
 
   , Display
@@ -7,13 +7,8 @@ module Calculator exposing
   )
 
 
--- TODO:
---
--- Respect operator precedence when evaluating expressions.
---   Yes. 1 + 2 * 3 = 1 + 6 = 7
---    No. 1 + 2 * 3 = 3 * 3 = 9 <---- This is current behaviour.
---
--- The CodePen example uses JavaScript's eval.
+import Expr exposing (Expr(..))
+import Operator exposing (Operator(..))
 
 
 type Calculator
@@ -29,19 +24,6 @@ type Key
   | Digit Int
   | Operator Operator
   | Equal
-
-
-type Operator
-  = Plus
-  | Minus
-  | Times
-
-
-type Expr
-  = Const Int
-  | Add Expr Expr
-  | Sub Expr Expr
-  | Mul Expr Expr
 
 
 new : Calculator
@@ -92,7 +74,7 @@ process key calculator =
           Partial newOp left
 
         Equal ->
-          Answer (eval left) left
+          Answer (Expr.eval left) left
 
     Right n op left ->
       case key of
@@ -110,7 +92,7 @@ process key calculator =
             expr =
               operatorToExpr op left (Const n)
           in
-            Answer (eval expr) expr
+            Answer (Expr.eval expr) expr
 
     Answer n expr ->
       case key of
@@ -125,22 +107,6 @@ process key calculator =
 
         Equal ->
           Answer n expr
-
-
-eval : Expr -> Int
-eval expr =
-  case expr of
-    Const n ->
-      n
-
-    Add a b ->
-      (eval a) + (eval b)
-
-    Sub a b ->
-      (eval a) - (eval b)
-
-    Mul a b ->
-      (eval a) * (eval b)
 
 
 operatorToExpr : Operator -> Expr -> Expr -> Expr
@@ -178,49 +144,20 @@ toDisplay calculator =
     Partial op left ->
       let
         opAsString =
-          operatorToString op
+          Operator.toString op
       in
-        Display (exprToString left ++ opAsString) opAsString
+        Display (Expr.toString left ++ opAsString) opAsString
 
     Right n op left ->
       let
         s =
           String.fromInt n
       in
-        Display (exprToString left ++ operatorToString op ++ s) s
+        Display (Expr.toString left ++ Operator.toString op ++ s) s
 
     Answer n expr ->
       let
         s =
           String.fromInt n
       in
-        Display (exprToString expr ++ "=" ++ s) s
-
-
-exprToString : Expr -> String
-exprToString expr =
-  case expr of
-    Const n ->
-      String.fromInt n
-
-    Add a b ->
-      (exprToString a) ++ "+" ++ (exprToString b)
-
-    Sub a b ->
-      (exprToString a) ++ "-" ++ (exprToString b)
-
-    Mul a b ->
-      (exprToString a) ++ "*" ++ (exprToString b)
-
-
-operatorToString : Operator -> String
-operatorToString op =
-  case op of
-    Plus ->
-      "+"
-
-    Minus ->
-      "-"
-
-    Times ->
-      "*"
+        Display (Expr.toString expr ++ "=" ++ s) s
