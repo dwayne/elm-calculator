@@ -75,7 +75,7 @@ viewCalculator calculator =
       , div [ class "calculator__buttons" ]
           [ button [ class "r0 c0 colspan2 bg-red", onClick (Clicked AC) ]
               [ text "AC" ]
-          , button [ class "r0 c2", disabled True ]
+          , button [ class "r0 c2", onClick (Clicked (Operator Division)) ]
               [ text "÷" ]
           , button [ class "r0 c3", onClick (Clicked (Operator Times)) ]
               [ text "×" ]

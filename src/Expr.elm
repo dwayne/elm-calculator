@@ -10,6 +10,7 @@ type Expr
   | Add Expr Expr
   | Sub Expr Expr
   | Mul Expr Expr
+  | Div Expr Expr
 
 
 eval : Expr -> Int
@@ -36,6 +37,9 @@ tokenize expr =
 
     Mul a b ->
       tokenize a ++ [Symbol Times] ++ tokenize b
+
+    Div a b ->
+      tokenize a ++ [Symbol Division] ++ tokenize b
 
 
 evalTokens : List Token -> Stack Operator -> Stack Int -> Int
@@ -123,6 +127,9 @@ evalBinop op a b =
     Times ->
       a * b
 
+    Division ->
+      a // b
+
 
 precedence : Operator -> Int
 precedence op =
@@ -134,6 +141,9 @@ precedence op =
       1
 
     Times ->
+      2
+
+    Division ->
       2
 
 
@@ -151,3 +161,6 @@ toString expr =
 
     Mul a b ->
       toString a ++ "*" ++ toString b
+
+    Div a b ->
+      toString a ++ "/" ++ toString b

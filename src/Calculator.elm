@@ -121,6 +121,9 @@ operatorToExpr op =
     Times ->
       Mul
 
+    Division ->
+      Div
+
 
 type alias Display =
   { expr : String

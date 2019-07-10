@@ -5,6 +5,7 @@ type Operator
   = Plus
   | Minus
   | Times
+  | Division
 
 
 toString : Operator -> String
@@ -18,3 +19,6 @@ toString op =
 
     Times ->
       "*"
+
+    Division ->
+      "/"

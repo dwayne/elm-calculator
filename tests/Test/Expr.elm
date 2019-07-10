@@ -40,6 +40,18 @@ simpleSuite =
         \_ ->
           Expr.eval (Mul (Const 2) (Const 5))
             |> Expect.equal 10
+    , test "10/2" <|
+        \_ ->
+          Expr.eval (Div (Const 10) (Const 2))
+            |> Expect.equal 5
+    , test "5/2" <|
+        \_ ->
+          Expr.eval (Div (Const 5) (Const 2))
+            |> Expect.equal 2
+    , test "1/0" <|
+        \_ ->
+          Expr.eval (Div (Const 1) (Const 0))
+            |> Expect.equal 0
     ]
 
 
@@ -58,6 +70,10 @@ precedenceSuite =
         \_ ->
           Expr.eval (Add (Const 1) (Mul (Const 2) (Const 3)))
             |> Expect.equal 7
+    , test "1+3/3" <|
+        \_ ->
+          Expr.eval (Div (Add (Const 1) (Const 3)) (Const 3))
+            |> Expect.equal 2
     , test "1+2-5*8+6-10*3" <|
         \_ ->
           let
