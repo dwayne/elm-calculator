@@ -105,7 +105,7 @@ viewCalculator calculator =
               [ text "=" ]
           , button [ class "r4 c0 colspan2", onClick (Clicked (Digit 0)) ]
               [ text "0" ]
-          , button [ class "r4 c2", disabled True ]
+          , button [ class "r4 c2", onClick (Clicked Dot) ]
               [ text "." ]
           ]
       ]

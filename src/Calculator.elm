@@ -14,16 +14,22 @@ import Rational exposing (Rational)
 
 type Calculator
   = Start
-  | Left Int
+  | Left Number
   | Partial Operator Expr
-  | Right Int Operator Expr
+  | Right Number Operator Expr
   | Answer Rational Expr
+
+
+type Number
+  = Whole Int
+  | Decimal Int Int Int
 
 
 type Key
   = AC
   | Digit Int
   | Operator Operator
+  | Dot
   | Equal
 
 
@@ -41,10 +47,13 @@ process key calculator =
           Start
 
         Digit d ->
-          Left d
+          Left (Whole d)
 
         Operator _ ->
           Start
+
+        Dot ->
+          Left (Decimal 0 0 1)
 
         Equal ->
           Start
@@ -55,13 +64,30 @@ process key calculator =
           Start
 
         Digit d ->
-          Left (n * 10 + d)
+          case n of
+            Whole w ->
+              Left (Whole (w * 10 + d))
+
+            Decimal w f p ->
+              Left (Decimal w (f * 10 + d) (p * 10))
 
         Operator op ->
-          Partial op (Const (Rational.fromInt n))
+          Partial op (Const (rational n))
+
+        Dot ->
+          case n of
+            Whole w ->
+              Left (Decimal w 0 1)
+
+            Decimal w f p ->
+              Left (Decimal w f p)
 
         Equal ->
-          Answer (Rational.fromInt n) (Const (Rational.fromInt n))
+          let
+            r =
+              rational n
+          in
+            Answer r (Const r)
 
     Partial op left ->
       case key of
@@ -69,10 +95,13 @@ process key calculator =
           Start
 
         Digit d ->
-          Right d op left
+          Right (Whole d) op left
 
         Operator newOp ->
           Partial newOp left
+
+        Dot ->
+          Right (Decimal 0 0 1) op left
 
         Equal ->
           Answer (Expr.eval left) left
@@ -83,15 +112,28 @@ process key calculator =
           Start
 
         Digit d ->
-          Right (n * 10 + d) op left
+          case n of
+            Whole w ->
+              Right (Whole (w * 10 + d)) op left
+
+            Decimal w f p ->
+              Right (Decimal w (f * 10 + d) (p * 10)) op left
 
         Operator newOp ->
-          Partial newOp (operatorToExpr op left (Const (Rational.fromInt n)))
+          Partial newOp (operatorToExpr op left (Const (rational n)))
+
+        Dot ->
+          case n of
+            Whole w ->
+              Right (Decimal w 0 1) op left
+
+            Decimal w f p ->
+              Right (Decimal w f p) op left
 
         Equal ->
           let
             expr =
-              operatorToExpr op left (Const (Rational.fromInt n))
+              operatorToExpr op left (Const (rational n))
           in
             Answer (Expr.eval expr) expr
 
@@ -101,13 +143,27 @@ process key calculator =
           Start
 
         Digit d ->
-          Left d
+          Left (Whole d)
 
         Operator op ->
           Partial op (Const n)
 
+        Dot ->
+          Left (Decimal 0 0 1)
+
         Equal ->
           Answer n expr
+
+
+rational : Number -> Rational
+rational n =
+  case n of
+    Whole w ->
+      Rational.fromInt w
+
+    Decimal w f p ->
+      Maybe.map2 Rational.add (Rational.new w 1) (Rational.new f p)
+        |> Maybe.withDefault Rational.zero
 
 
 operatorToExpr : Operator -> Expr -> Expr -> Expr
@@ -140,10 +196,13 @@ toDisplay calculator =
 
     Left n ->
       let
-        s =
-          String.fromInt n
+        expr =
+          Rational.toDecimalString (rational n)
+
+        output =
+          toPaddedDecimalString n
       in
-        Display s s
+        Display expr output
 
     Partial op left ->
       let
@@ -154,10 +213,13 @@ toDisplay calculator =
 
     Right n op left ->
       let
-        s =
-          String.fromInt n
+        expr =
+          Rational.toDecimalString (rational n)
+
+        output =
+          toPaddedDecimalString n
       in
-        Display (Expr.toString left ++ Operator.toString op ++ s) s
+        Display (Expr.toString left ++ Operator.toString op ++ expr) output
 
     Answer n expr ->
       let
@@ -165,3 +227,23 @@ toDisplay calculator =
           Rational.toDecimalString n
       in
         Display (Expr.toString expr ++ "=" ++ s) s
+
+
+toPaddedDecimalString : Number -> String
+toPaddedDecimalString n =
+  case n of
+    Whole w ->
+      String.fromInt w
+
+    Decimal w f p ->
+      String.concat
+        [ String.fromInt w
+        , "."
+        , if f == 0 && p == 1 then
+            ""
+          else
+            String.padLeft
+              (String.length (String.fromInt p) - 1)
+              '0'
+              (String.fromInt f)
+        ]

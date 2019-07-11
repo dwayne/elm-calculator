@@ -12,6 +12,7 @@ suite : Test
 suite =
   describe "Calculator"
     [ processSuite
+    , decimalInputSuite
     , operatorPrecedenceSuite
     , negativeDivisionSuite
     ]
@@ -43,6 +44,12 @@ processSuite =
                   |> Calculator.process (Operator Plus)
                   |> Calculator.toDisplay
                   |> Expect.equal { expr = "", output = "0" }
+          , test "pressing dot" <|
+              \_ ->
+                calculator
+                  |> Calculator.process Dot
+                  |> Calculator.toDisplay
+                  |> Expect.equal { expr = "0", output = "0." }
           , test "pressing =" <|
               \_ ->
                 calculator
@@ -75,6 +82,12 @@ processSuite =
                   |> Calculator.process (Operator Plus)
                   |> Calculator.toDisplay
                   |> Expect.equal { expr = "12+", output = "+" }
+          , test "pressing dot" <|
+              \_ ->
+                calculator
+                  |> Calculator.process Dot
+                  |> Calculator.toDisplay
+                  |> Expect.equal { expr = "12", output = "12." }
           , test "pressing =" <|
               \_ ->
                 calculator
@@ -108,6 +121,12 @@ processSuite =
                   |> Calculator.process (Operator Minus)
                   |> Calculator.toDisplay
                   |> Expect.equal { expr = "12-", output = "-" }
+          , test "pressing dot" <|
+              \_ ->
+                calculator
+                  |> Calculator.process Dot
+                  |> Calculator.toDisplay
+                  |> Expect.equal { expr = "12+0", output = "0." }
           , test "pressing =" <|
               \_ ->
                 calculator
@@ -144,6 +163,12 @@ processSuite =
                   |> Calculator.process (Operator Plus)
                   |> Calculator.toDisplay
                   |> Expect.equal { expr = "12+3-4+", output = "+" }
+          , test "pressing dot" <|
+              \_ ->
+                calculator
+                  |> Calculator.process Dot
+                  |> Calculator.toDisplay
+                  |> Expect.equal { expr = "12+3-4", output = "4." }
           , test "pressing =" <|
               \_ ->
                 calculator
@@ -181,6 +206,12 @@ processSuite =
                   |> Calculator.process (Operator Plus)
                   |> Calculator.toDisplay
                   |> Expect.equal { expr = "11+", output = "+" }
+          , test "pressing dot" <|
+              \_ ->
+                calculator
+                  |> Calculator.process Dot
+                  |> Calculator.toDisplay
+                  |> Expect.equal { expr = "0", output = "0." }
           , test "pressing =" <|
               \_ ->
                 calculator
@@ -188,6 +219,42 @@ processSuite =
                   |> Calculator.toDisplay
                   |> Expect.equal { expr = "12+3-4=11", output = "11" }
           ]
+    ]
+
+
+decimalInputSuite : Test
+decimalInputSuite =
+  describe "decimal input" <|
+    [ test "leading zeros are preserved" <|
+        \_ ->
+          let
+            calculator =
+              Calculator.new
+                |> Calculator.process Dot
+                |> Calculator.process (Digit 0)
+                |> Calculator.process (Digit 0)
+                |> Calculator.process (Digit 0)
+          in
+            calculator
+              |> Calculator.toDisplay
+              |> Expect.equal { expr = "0", output = "0.000" }
+    , test "trailing zeros are preserved" <|
+        \_ ->
+          let
+            calculator =
+              Calculator.new
+                |> Calculator.process Dot
+                |> Calculator.process (Digit 0)
+                |> Calculator.process (Digit 0)
+                |> Calculator.process (Digit 0)
+                |> Calculator.process (Digit 5)
+                |> Calculator.process (Digit 0)
+                |> Calculator.process (Digit 0)
+                |> Calculator.process (Digit 0)
+          in
+            calculator
+              |> Calculator.toDisplay
+              |> Expect.equal { expr = "0.0005", output = "0.0005000" }
     ]
 
 
