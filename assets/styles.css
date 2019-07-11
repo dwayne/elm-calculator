@@ -39,6 +39,9 @@ body {
 .calculator__expr {
   padding-bottom: 6px;
 
+  overflow-wrap: break-word;
+  line-height: 1em;
+
   text-align: right;
 
   font-family: Digital;
@@ -49,6 +52,9 @@ body {
 
 .calculator__output {
   padding-bottom: 6px;
+
+  overflow-wrap: break-word;
+  line-height: 1em;
 
   text-align: right;
 
