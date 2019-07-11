@@ -9,6 +9,7 @@ module Calculator exposing
 
 import Expr exposing (Expr(..))
 import Operator exposing (Operator(..))
+import Rational exposing (Rational)
 
 
 type Calculator
@@ -16,7 +17,7 @@ type Calculator
   | Left Int
   | Partial Operator Expr
   | Right Int Operator Expr
-  | Answer Int Expr
+  | Answer Rational Expr
 
 
 type Key
@@ -57,10 +58,10 @@ process key calculator =
           Left (n * 10 + d)
 
         Operator op ->
-          Partial op (Const n)
+          Partial op (Const (Rational.fromInt n))
 
         Equal ->
-          Answer n (Const n)
+          Answer (Rational.fromInt n) (Const (Rational.fromInt n))
 
     Partial op left ->
       case key of
@@ -85,12 +86,12 @@ process key calculator =
           Right (n * 10 + d) op left
 
         Operator newOp ->
-          Partial newOp (operatorToExpr op left (Const n))
+          Partial newOp (operatorToExpr op left (Const (Rational.fromInt n)))
 
         Equal ->
           let
             expr =
-              operatorToExpr op left (Const n)
+              operatorToExpr op left (Const (Rational.fromInt n))
           in
             Answer (Expr.eval expr) expr
 
@@ -161,6 +162,6 @@ toDisplay calculator =
     Answer n expr ->
       let
         s =
-          String.fromInt n
+          Rational.toDecimalString n
       in
         Display (Expr.toString expr ++ "=" ++ s) s

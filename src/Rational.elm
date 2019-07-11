@@ -1,6 +1,6 @@
 module Rational exposing
   ( Rational
-  , new
+  , zero, fromInt, new
 
   , add, sub, mul, div
 
@@ -13,6 +13,16 @@ import Set exposing (Set)
 
 type Rational
   = Rational Int Int
+
+
+zero : Rational
+zero =
+  Rational 0 1
+
+
+fromInt : Int -> Rational
+fromInt n =
+  Rational n 1
 
 
 new : Int -> Int -> Maybe Rational
@@ -75,7 +85,7 @@ mul (Rational n1 d1) (Rational n2 d2) =
 div : Rational -> Rational -> Rational
 div (Rational n1 d1) (Rational n2 d2) =
   if n2 == 0 then
-    Rational 0 1
+    zero
   else
     makeRational (n1*d2) (d1*n2)
 

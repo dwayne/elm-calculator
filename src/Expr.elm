@@ -2,24 +2,25 @@ module Expr exposing (Expr(..), eval, toString)
 
 
 import Operator exposing (Operator(..))
+import Rational exposing (Rational)
 import Stack exposing (Stack)
 
 
 type Expr
-  = Const Int
+  = Const Rational
   | Add Expr Expr
   | Sub Expr Expr
   | Mul Expr Expr
   | Div Expr Expr
 
 
-eval : Expr -> Int
+eval : Expr -> Rational
 eval expr =
   evalTokens (tokenize expr) Stack.new Stack.new
 
 
 type Token
-  = Number Int
+  = Number Rational
   | Symbol Operator
 
 
@@ -42,7 +43,7 @@ tokenize expr =
       tokenize a ++ [Symbol Division] ++ tokenize b
 
 
-evalTokens : List Token -> Stack Operator -> Stack Int -> Int
+evalTokens : List Token -> Stack Operator -> Stack Rational -> Rational
 evalTokens tokens operators operands =
   case tokens of
     [] ->
@@ -61,7 +62,7 @@ evalTokens tokens operators operands =
             evalTokens rest newOperators newOperands
 
 
-evalDominantOperators : Stack Operator -> Stack Int -> Operator -> (Stack Operator, Stack Int)
+evalDominantOperators : Stack Operator -> Stack Rational -> Operator -> (Stack Operator, Stack Rational)
 evalDominantOperators operators operands op =
   case Stack.pop operators of
     Nothing ->
@@ -79,13 +80,13 @@ evalDominantOperators operators operands op =
         (Stack.push op operators, operands)
 
 
-evalOperators : Stack Operator -> Stack Int -> Int
+evalOperators : Stack Operator -> Stack Rational -> Rational
 evalOperators operators operands =
   case Stack.pop operators of
     Nothing ->
       case Stack.pop operands of
         Nothing ->
-          0
+          Rational.zero
 
         Just (result, _) ->
           result
@@ -93,13 +94,13 @@ evalOperators operators operands =
     Just (op, newOperators) ->
       case evalOperands op operands of
         Nothing ->
-          0
+          Rational.zero
 
         Just newOperands ->
           evalOperators newOperators newOperands
 
 
-evalOperands : Operator -> Stack Int -> Maybe (Stack Int)
+evalOperands : Operator -> Stack Rational -> Maybe (Stack Rational)
 evalOperands op operands =
   case Stack.pop operands of
     Nothing ->
@@ -115,20 +116,20 @@ evalOperands op operands =
             Stack.push (evalBinop op left right) operandsMinus2
 
 
-evalBinop : Operator -> Int -> Int -> Int
-evalBinop op a b =
+evalBinop : Operator -> Rational -> Rational -> Rational
+evalBinop op =
   case op of
     Plus ->
-      a + b
+      Rational.add
 
     Minus ->
-      a - b
+      Rational.sub
 
     Times ->
-      a * b
+      Rational.mul
 
     Division ->
-      a // b
+      Rational.div
 
 
 precedence : Operator -> Int
@@ -151,7 +152,7 @@ toString : Expr -> String
 toString expr =
   case expr of
     Const n ->
-      String.fromInt n
+      Rational.toDecimalString n
 
     Add a b ->
       toString a ++ "+" ++ toString b

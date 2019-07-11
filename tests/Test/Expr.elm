@@ -5,6 +5,7 @@ import Expect
 import Test exposing (..)
 
 import Expr exposing (Expr(..), eval)
+import Rational exposing (Rational)
 
 
 suite : Test
@@ -26,32 +27,32 @@ simpleSuite =
   describe "simple expressions" <|
     [ test "1" <|
         \_ ->
-          Expr.eval (Const 1)
-            |> Expect.equal 1
+          Expr.eval (const 1)
+            |> Expect.equal (int 1)
     , test "1+2" <|
         \_ ->
-          Expr.eval (Add (Const 1) (Const 2))
-            |> Expect.equal 3
+          Expr.eval (Add (const 1) (const 2))
+            |> Expect.equal (int 3)
     , test "6-1" <|
         \_ ->
-          Expr.eval (Sub (Const 6) (Const 1))
-            |> Expect.equal 5
+          Expr.eval (Sub (const 6) (const 1))
+            |> Expect.equal (int 5)
     , test "2*5" <|
         \_ ->
-          Expr.eval (Mul (Const 2) (Const 5))
-            |> Expect.equal 10
+          Expr.eval (Mul (const 2) (const 5))
+            |> Expect.equal (int 10)
     , test "10/2" <|
         \_ ->
-          Expr.eval (Div (Const 10) (Const 2))
-            |> Expect.equal 5
+          Expr.eval (Div (const 10) (const 2))
+            |> Expect.equal (int 5)
     , test "5/2" <|
         \_ ->
-          Expr.eval (Div (Const 5) (Const 2))
-            |> Expect.equal 2
+          Expr.eval (Div (const 5) (const 2))
+            |> Expect.equal (rational 5 2)
     , test "1/0" <|
         \_ ->
-          Expr.eval (Div (Const 1) (Const 0))
-            |> Expect.equal 0
+          Expr.eval (Div (const 1) (const 0))
+            |> Expect.equal (int 0)
     ]
 
 
@@ -60,20 +61,20 @@ precedenceSuite =
   describe "operator precedence" <|
     [ test "2+3-4" <|
         \_ ->
-          Expr.eval (Add (Const 2) (Sub (Const 3) (Const 4)))
-            |> Expect.equal 1
+          Expr.eval (Add (const 2) (Sub (const 3) (const 4)))
+            |> Expect.equal (int 1)
     , test "2-3+4" <|
         \_ ->
-          Expr.eval (Sub (Const 2) (Add (Const 3) (Const 4)))
-            |> Expect.equal 3
+          Expr.eval (Sub (const 2) (Add (const 3) (const 4)))
+            |> Expect.equal (int 3)
     , test "1+2*3" <|
         \_ ->
-          Expr.eval (Add (Const 1) (Mul (Const 2) (Const 3)))
-            |> Expect.equal 7
+          Expr.eval (Add (const 1) (Mul (const 2) (const 3)))
+            |> Expect.equal (int 7)
     , test "1+3/3" <|
         \_ ->
-          Expr.eval (Div (Add (Const 1) (Const 3)) (Const 3))
-            |> Expect.equal 2
+          Expr.eval (Div (Add (const 1) (const 3)) (const 3))
+            |> Expect.equal (int 2)
     , test "1+2-5*8+6-10*3" <|
         \_ ->
           let
@@ -84,14 +85,32 @@ precedenceSuite =
                     (Mul
                       (Sub
                         (Add
-                          (Const 1)
-                          (Const 2))
-                        (Const 5))
-                      (Const 8))
-                    (Const 6))
-                  (Const 10))
-                (Const 3)
+                          (const 1)
+                          (const 2))
+                        (const 5))
+                      (const 8))
+                    (const 6))
+                  (const 10))
+                (const 3)
           in
             Expr.eval expr
-              |> Expect.equal -61
+              |> Expect.equal (int -61)
     ]
+
+
+-- HELPERS
+
+
+const : Int -> Expr
+const =
+  Const << Rational.fromInt
+
+
+int : Int -> Rational
+int =
+  Rational.fromInt
+
+
+rational : Int -> Int -> Rational
+rational n d =
+  Maybe.withDefault (Rational.zero) (Rational.new n d)

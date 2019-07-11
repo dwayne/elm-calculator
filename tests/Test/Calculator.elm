@@ -13,6 +13,7 @@ suite =
   describe "Calculator"
     [ processSuite
     , operatorPrecedenceSuite
+    , negativeDivisionSuite
     ]
 
 
@@ -208,4 +209,26 @@ operatorPrecedenceSuite =
             calculator
               |> Calculator.toDisplay
               |> Expect.equal { expr = "1+2*3=7", output = "7" }
+    ]
+
+
+negativeDivisionSuite : Test
+negativeDivisionSuite =
+  describe "negative division" <|
+    [ test "negative divided by positive" <|
+        \_ ->
+          let
+            calculator =
+              Calculator.new
+                |> Calculator.process (Digit 1)
+                |> Calculator.process (Operator Minus)
+                |> Calculator.process (Digit 2)
+                |> Calculator.process Equal
+                |> Calculator.process (Operator Division)
+                |> Calculator.process (Digit 3)
+                |> Calculator.process Equal
+          in
+            calculator
+              |> Calculator.toDisplay
+              |> Expect.equal { expr = "-1/3=-0.(3)", output = "-0.(3)" }
     ]
