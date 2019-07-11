@@ -117,6 +117,11 @@ terminatingDecimalSuite =
           Rational.new 1 2
             |> Maybe.map Rational.toDecimalString
             |> Expect.equal (Just "0.5")
+    , test "-1/2" <|
+        \_ ->
+          Rational.new -1 2
+            |> Maybe.map Rational.toDecimalString
+            |> Expect.equal (Just "-0.5")
     , test "5/2" <|
         \_ ->
           Rational.new 5 2

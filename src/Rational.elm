@@ -94,13 +94,22 @@ toDecimalString (Rational n d) =
     String.fromInt n
   else
     let
+      sign =
+        if n < 0 then
+          "-"
+        else
+          ""
+
+      m =
+        abs n
+
       quotient =
-        n // d
+        m // d
 
       remainder =
-        modBy d (abs n)
+        modBy d m
     in
-      String.fromInt quotient ++ "." ++ (decimalRep remainder d)
+      sign ++ String.fromInt quotient ++ "." ++ (decimalRep remainder d)
 
 
 decimalRep : Int -> Int -> String
