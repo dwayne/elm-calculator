@@ -25,8 +25,8 @@ I think I accomplished both but you can be the judge.
 
 With respect to the first goal I did it by starting with the right abstraction.
 If you follow the commits from when I
-[added addition and subtraction](https://github.com/elm-school/calculator/commit/21b89460ee169de1f30efd66b327bb299852688f)
-to when I finally [made decimal input work](https://github.com/elm-school/calculator/commit/1e0785589a3b2f5ff559b1c1617038df199f9cb7)
+[added addition and subtraction](https://github.com/dwayne/elm-calculator/commit/21b89460ee169de1f30efd66b327bb299852688f)
+to when I finally [made decimal input work](https://github.com/dwayne/elm-calculator/commit/1e0785589a3b2f5ff559b1c1617038df199f9cb7)
 you'd see the evolution of the abstraction and the minor changes I needed to
 make to the UI.
 
@@ -36,8 +36,8 @@ guarantee the correctness of some of the algorithms I needed to write.
 
 For e.g. in my rational to decimal representation logic I had a bug where
 `-1/3` was being represented as `0.(3)` when it should have been `-0.(3)`. A
-test caught that, see [here](https://github.com/elm-school/calculator/blob/f55790975ee68167f762da318f23c301be982b2c/tests/Test/Calculator.elm#L282).
-And, I was able to [fix](https://github.com/elm-school/calculator/commit/87c49787dea873d1897317ffce799f6ae5b76586)
+test caught that, see [here](https://github.com/dwayne/elm-calculator/blob/f55790975ee68167f762da318f23c301be982b2c/tests/Test/Calculator.elm#L282).
+And, I was able to [fix](https://github.com/dwayne/elm-calculator/commit/87c49787dea873d1897317ffce799f6ae5b76586)
 it soon afterwards.
 
 ## Takeaways
@@ -54,4 +54,4 @@ the most by studying what seems the least." ~ Marvin Minsky, Society of Mind
 
 ## That's all folks!
 
-Check out the [demo](https://elm-school.github.io/calculator/).
+Check out the [demo](https://dwayne.github.io/elm-calculator/).
