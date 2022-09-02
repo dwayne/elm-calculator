@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Key</title>
+
+    <link rel="stylesheet" href="/global.css">
+    <link rel="stylesheet" href="/key.css">
+    <style>
+      .box {
+        width: 80px;
+        height: 65px;
+      }
+
+      .box-span-column {
+        width: calc(2 * 80px + 1px);
+        height: 65px;
+      }
+
+      .box-span-row {
+        width: 80px;
+        height: calc(2 * 65px + 1px);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Key</h1>
+
+    <h2>Default</h2>
+
+    <p>
+      <button class="key">8</button>
+    </p>
+
+    <p>
+      <div class="box">
+        <button class="key">8</button>
+      </div>
+    </p>
+
+    <h2>Primary</h2>
+
+    <p>
+      <div class="box">
+        <button class="key key--primary">AC</button>
+      </div>
+    </p>
+
+    <h2>Secondary</h2>
+
+    <p>
+      <div class="box">
+        <button class="key key--secondary">=</button>
+      </div>
+    </p>
+
+    <h2>Span: Columns</h2>
+
+    <p>
+      <div class="box-span-column">
+        <button class="key key--primary">AC</button>
+      </div>
+    </p>
+
+    <h2>Span: Rows</h2>
+
+    <p>
+      <div class="box-span-row">
+        <button class="key key--secondary">=</button>
+      </div>
+    </p>
+  </body>
+</html>
