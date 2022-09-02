@@ -1,0 +1,22 @@
+.display {
+  padding: 5px 5px 10px 5px;
+  font-family: Digital;
+  overflow-wrap: break-word;
+  text-align: right;
+  background-color: black;
+}
+
+
+.display__input {
+  padding-bottom: 2px;
+  line-height: 1;
+  font-size: 20px;
+  color: orange;
+}
+
+
+.display__output {
+  line-height: 1;
+  font-size: 29px;
+  color: white;
+}

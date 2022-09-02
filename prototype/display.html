@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Display</title>
+
+    <link rel="stylesheet" href="/global.css">
+    <link rel="stylesheet" href="/display.css">
+    <style>
+      .box {
+        width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Display</h1>
+
+    <h2>Default</h2>
+
+    <div class="display">
+      <div class="display__input">22/7=3.(142857)</div>
+      <div class="display__output">3.(142857)</div>
+    </div>
+
+    <p>You can constraint the width of the display to whatever length you want.</p>
+
+    <div class="box">
+      <div class="display">
+        <div class="display__input">22/7=3.(142857)</div>
+        <div class="display__output">3.(142857)</div>
+      </div>
+    </div>
+
+    <h2>Long text</h2>
+
+    <p>Long text wraps.</p>
+
+    <div class="box">
+      <div class="display">
+        <div class="display__input">0*8111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</div>
+        <div class="display__output">8111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</div>
+      </div>
+    </div>
+  </body>
+</html>
