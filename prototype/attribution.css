@@ -1,0 +1,11 @@
+.attribution {
+  margin: 0;
+
+  font-family: "Share Tech Mono", monospace;
+  text-align: center;
+}
+
+.attribution__link {
+  text-decoration: none;
+  color: #00264d;
+}
