@@ -1,0 +1,18 @@
+:root {
+  --calculator-display-width: var(--pad-width);
+}
+
+
+.calculator {
+  display: inline-flex;
+  flex-direction: column;
+
+  border: 2px solid #47476b;
+  padding: 3px;
+  background-color: black;
+}
+
+
+.calculator__display {
+  width: var(--calculator-display-width);
+}

@@ -20,3 +20,9 @@
   font-size: 29px;
   color: white;
 }
+
+
+.display__input:empty::before,
+.display__output:empty::before {
+  content: "\00A0";
+}
