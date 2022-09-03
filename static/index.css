@@ -8,73 +8,18 @@
        url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.ttf") format("truetype");
 }
 
-body {
-  margin: 0;
-  height: 100vh;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background-color: #c2c2d6;
+* {
+  box-sizing: border-box;
 }
 
-.inline-block {
-  display: inline-block;
-}
 
-.calculator {
-  --button-width: 80px;
-  --button-height: 65px;
-  --button-spacing-around: 1px;
+/* Key */
 
-  width: calc(5 * var(--button-spacing-around) + 4 * var(--button-width));
 
-  padding: 3px;
-  border: 2px solid #47476b;
-
-  background-color: black;
-}
-
-.calculator__expr {
-  padding-bottom: 6px;
-
-  overflow-wrap: break-word;
-  line-height: 1em;
-
-  text-align: right;
-
-  font-family: Digital;
-  font-size: 20px;
-
-  color: orange;
-}
-
-.calculator__output {
-  padding-bottom: 6px;
-
-  overflow-wrap: break-word;
-  line-height: 1em;
-
-  text-align: right;
-
-  font-family: Digital;
-  font-size: 29px;
-
-  color: white;
-}
-
-.calculator__buttons {
-  position: relative;
-
-  height: calc(6 * var(--button-spacing-around) + 5 * var(--button-height));
-}
-
-.calculator__buttons button {
-  position: absolute;
-
-  width: var(--button-width);
-  height: var(--button-height);
+.key {
+  display: block;
+  width: 100%;
+  height: 100%;
 
   border: 0;
   padding: 0;
@@ -88,77 +33,210 @@ body {
   cursor: pointer;
 }
 
-.calculator__buttons button:hover {
-  z-index: 1;
+
+.key:hover {
   outline: 0.05em solid grey;
   color: black;
 }
 
-.calculator__buttons button:disabled {
-  visibility: hidden;
-}
 
-.calculator__buttons button.r0 {
-  top: var(--button-spacing-around);
-}
-
-.calculator__buttons button.r1 {
-  top: calc(2 * var(--button-spacing-around) + var(--button-height));
-}
-
-.calculator__buttons button.r2 {
-  top: calc(3 * var(--button-spacing-around) + 2 * var(--button-height));
-}
-
-.calculator__buttons button.r3 {
-  top: calc(4 * var(--button-spacing-around) + 3 * var(--button-height));
-}
-
-.calculator__buttons button.r4 {
-  top: calc(5 * var(--button-spacing-around) + 4 * var(--button-height));
-}
-
-.calculator__buttons button.c0 {
-  left: var(--button-spacing-around);
-}
-
-.calculator__buttons button.c1 {
-  left: calc(2 * var(--button-spacing-around) + var(--button-width));
-}
-
-.calculator__buttons button.c2 {
-  left: calc(3 * var(--button-spacing-around) + 2 * var(--button-width));
-}
-
-.calculator__buttons button.c3 {
-  left: calc(4 * var(--button-spacing-around) + 3 * var(--button-width));
-}
-
-.calculator__buttons button.rowspan2 {
-  height: calc(var(--button-spacing-around) + 2 * var(--button-height));
-}
-
-.calculator__buttons button.colspan2 {
-  width: calc(var(--button-spacing-around) + 2 * var(--button-width));
-}
-
-.calculator__buttons button.bg-red {
+.key--primary {
   background-color: #ac3939;
 }
 
-.calculator__buttons button.bg-blue {
+.key--secondary {
   background-color: #004466;
 }
 
+
+/* Pad */
+
+
+:root {
+  --pad-slot-width: 80px;
+  --pad-slot-height: 65px;
+  --pad-slot-spacing-around: 1px;
+
+  --pad-width: calc(4 * var(--pad-slot-width) + 5 * var(--pad-slot-spacing-around));
+  --pad-height: calc(5 * var(--pad-slot-height) + 6 * var(--pad-slot-spacing-around));
+}
+
+
+.pad {
+  position: relative;
+
+  width: var(--pad-width);
+  height: var(--pad-height);
+
+  background-color: black;
+}
+
+
+.pad__slot {
+  position: absolute;
+
+  width: var(--pad-slot-width);
+  height: var(--pad-slot-height);
+}
+
+
+.pad__slot.r0 {
+  top: var(--pad-slot-spacing-around);
+}
+
+.pad__slot.r1 {
+  top: calc(var(--pad-slot-height) + 2 * var(--pad-slot-spacing-around));
+}
+
+.pad__slot.r2 {
+  top: calc(2 * var(--pad-slot-height) + 3 * var(--pad-slot-spacing-around));
+}
+
+.pad__slot.r3 {
+  top: calc(3 * var(--pad-slot-height) + 4 * var(--pad-slot-spacing-around));
+}
+
+.pad__slot.r4 {
+  top: calc(4 * var(--pad-slot-height) + 5 * var(--pad-slot-spacing-around));
+}
+
+.pad__slot.c0 {
+  left: var(--pad-slot-spacing-around);
+}
+
+.pad__slot.c1 {
+  left: calc(var(--pad-slot-width) + 2 * var(--pad-slot-spacing-around));
+}
+
+.pad__slot.c2 {
+  left: calc(2 * var(--pad-slot-width) + 3 * var(--pad-slot-spacing-around));
+}
+
+.pad__slot.c3 {
+  left: calc(3 * var(--pad-slot-width) + 4 * var(--pad-slot-spacing-around));
+}
+
+.pad__slot.rowspan2 {
+  height: calc(2 * var(--pad-slot-height) + var(--pad-slot-spacing-around));
+}
+
+.pad__slot.colspan2 {
+  width: calc(2 * var(--pad-slot-width) + var(--pad-slot-spacing-around));
+}
+
+
+/* Display */
+
+
+.display {
+  padding: 5px 5px 10px 5px;
+  font-family: Digital;
+  overflow-wrap: break-word;
+  text-align: right;
+  background-color: black;
+}
+
+
+.display__input {
+  padding-bottom: 2px;
+  line-height: 1;
+  font-size: 20px;
+  color: orange;
+}
+
+
+.display__output {
+  line-height: 1;
+  font-size: 29px;
+  color: white;
+}
+
+
+.display__input:empty::before,
+.display__output:empty::before {
+  content: "\00A0";
+}
+
+
+/* Calculator */
+
+
+:root {
+  --calculator-display-width: var(--pad-width);
+}
+
+
+.calculator {
+  display: inline-flex;
+  flex-direction: column;
+
+  border: 2px solid #47476b;
+  padding: 3px;
+  background-color: black;
+}
+
+
+.calculator__display {
+  width: var(--calculator-display-width);
+}
+
+
+/* Attribution */
+
+
 .attribution {
-  margin-top: 15px;
+  margin: 0;
 
   font-family: "Share Tech Mono", monospace;
-
   text-align: center;
 }
 
-a.attribution__link {
+.attribution__link {
   text-decoration: none;
   color: #00264d;
+}
+
+
+/* Layout */
+
+
+body {
+  margin: 0;
+  height: 100vh;
+
+  background-color: #c2c2d6;
+}
+
+
+.layout {
+  height: 100%;
+}
+
+
+.layout__main {
+  display: inline-flex;
+  flex-direction: column;
+
+  padding: 20px;
+}
+
+
+.layout__calculator {
+  margin-bottom: 15px;
+}
+
+
+@media screen and (min-width: 375px) {
+  .layout {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+
+@media screen and (min-height: 481px) {
+  .layout {
+    display: flex;
+    align-items: center;
+  }
 }
