@@ -7,7 +7,7 @@
 }
 
 
-.display__input {
+.display__line1 {
   padding-bottom: 2px;
   line-height: 1;
   font-size: 20px;
@@ -15,14 +15,14 @@
 }
 
 
-.display__output {
+.display__line2 {
   line-height: 1;
   font-size: 29px;
   color: white;
 }
 
 
-.display__input:empty::before,
-.display__output:empty::before {
+.display__line1:empty::before,
+.display__line2:empty::before {
   content: "\00A0";
 }

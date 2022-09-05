@@ -21,8 +21,8 @@ view =
   viewLayout
     { calculator =
         viewCalculator
-          { input = "22/7=3.(142857)"
-          , output = "3.(142857)"
+          { line1 = "22/7=3.(142857)"
+          , line2 = "3.(142857)"
           , onClick = always ()
           }
     , attribution =
@@ -50,17 +50,17 @@ viewLayout { calculator, attribution } =
 
 
 viewCalculator :
-  { input : String
-  , output : String
+  { line1 : String
+  , line2 : String
   , onClick : Key -> msg
   }
   -> H.Html msg
-viewCalculator { input, output, onClick } =
+viewCalculator { line1, line2, onClick } =
   H.div [ HA.class "calculator" ]
     [ H.div [ HA.class "calculator__display" ]
         [ viewDisplay
-            { input = input
-            , output = output
+            { line1 = line1
+            , line2 = line2
             }
         ]
     , H.div [ HA.class "calculator__pad" ]
@@ -70,14 +70,14 @@ viewCalculator { input, output, onClick } =
 
 
 viewDisplay :
-  { input : String
-  , output : String
+  { line1 : String
+  , line2 : String
   }
   -> H.Html msg
-viewDisplay { input, output } =
+viewDisplay { line1, line2 } =
   H.div [ HA.class "display" ]
-    [ H.div [ HA.class "display__input" ] [ H.text input ]
-    , H.div [ HA.class "display__output" ] [ H.text output ]
+    [ H.div [ HA.class "display__line1" ] [ H.text line1 ]
+    , H.div [ HA.class "display__line2" ] [ H.text line2 ]
     ]
 
 
