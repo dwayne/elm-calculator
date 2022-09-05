@@ -1,6 +1,8 @@
 module Main exposing (main)
 
 
+import Browser
+import Calculator exposing (Calculator)
 import Digit
 import Html as H
 import Html.Attributes as HA
@@ -8,22 +10,58 @@ import Key exposing (Key)
 import Operator
 
 
-main : H.Html ()
+main : Program () Model Msg
 main =
-  view
+  Browser.sandbox
+    { init = init
+    , view = view
+    , update = update
+    }
+
+
+-- MODEL
+
+
+type alias Model =
+  { calculator : Calculator
+  }
+
+
+init : Model
+init =
+  { calculator = Calculator.new
+  }
+
+
+-- UPDATE
+
+
+type Msg
+  = Clicked Key
+
+
+update : Msg -> Model -> Model
+update msg model =
+  case msg of
+    Clicked key ->
+      { model | calculator = Calculator.press key model.calculator }
 
 
 -- VIEW
 
 
-view : H.Html ()
-view =
+view : Model -> H.Html Msg
+view { calculator } =
+  let
+    { line1, line2 } =
+      Calculator.toDisplay calculator
+  in
   viewLayout
     { calculator =
         viewCalculator
-          { line1 = "22/7=3.(142857)"
-          , line2 = "3.(142857)"
-          , onClick = always ()
+          { line1 = line1
+          , line2 = line2
+          , onClick = Clicked
           }
     , attribution =
         viewAttribution
