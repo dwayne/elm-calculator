@@ -1,9 +1,4 @@
-module Stack exposing
-  ( Stack
-  , new
-  , isEmpty
-  , push, pop
-  )
+module Stack exposing (Stack, new, isEmpty, push, pop)
 
 
 type Stack a
@@ -26,7 +21,7 @@ push x (Stack xs) =
 
 
 pop : Stack a -> Maybe (a, Stack a)
-pop ((Stack xs) as stack) =
+pop (Stack xs) =
   case xs of
     [] ->
       Nothing
