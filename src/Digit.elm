@@ -1,7 +1,4 @@
-module Digit exposing
-  ( Digit(..)
-  , toInt, toString
-  )
+module Digit exposing (Digit(..), toInt, toString)
 
 
 type Digit

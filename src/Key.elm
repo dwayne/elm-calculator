@@ -1,8 +1,9 @@
 module Key exposing
   ( Key(..)
+  , toString, toMathString
+
   , Options, Style(..)
   , view
-  , toMathString, toString
   )
 
 
@@ -19,6 +20,44 @@ type Key
   | Equal
   | Digit Digit
   | Operator Operator
+
+
+toString : Key -> String
+toString key =
+  case key of
+    AC ->
+      "AC"
+
+    Dot ->
+      "."
+
+    Equal ->
+      "="
+
+    Digit digit ->
+      Digit.toString digit
+
+    Operator operator ->
+      Operator.toString operator
+
+
+toMathString : Key -> String
+toMathString key =
+  case key of
+    AC ->
+      "AC"
+
+    Dot ->
+      "."
+
+    Equal ->
+      "="
+
+    Digit digit ->
+      Digit.toString digit
+
+    Operator operator ->
+      Operator.toMathString operator
 
 
 -- VIEW
@@ -53,41 +92,3 @@ view { style, onClick } key =
     , HE.onClick <| onClick key
     ]
     [ H.text <| toMathString key ]
-
-
-toMathString : Key -> String
-toMathString key =
-  case key of
-    AC ->
-      "AC"
-
-    Dot ->
-      "."
-
-    Equal ->
-      "="
-
-    Digit digit ->
-      Digit.toString digit
-
-    Operator operator ->
-      Operator.toMathString operator
-
-
-toString : Key -> String
-toString key =
-  case key of
-    AC ->
-      "AC"
-
-    Dot ->
-      "."
-
-    Equal ->
-      "="
-
-    Digit digit ->
-      Digit.toString digit
-
-    Operator operator ->
-      Operator.toString operator

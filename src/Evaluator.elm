@@ -1,8 +1,4 @@
-module Evaluator exposing
-  ( Answer
-  , Error(..)
-  , eval
-  )
+module Evaluator exposing (Answer, Error(..), eval)
 
 
 import Operator exposing (Operator(..))
@@ -25,6 +21,9 @@ type alias State =
   }
 
 
+--
+-- eval is an implementation of Edsger Dijkstra's shunting yard algorithm.
+--
 eval : List Token -> Answer
 eval tokens =
   let
