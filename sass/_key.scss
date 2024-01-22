@@ -1,4 +1,4 @@
-@use "fonts";
+@use "colors";
 
 .key {
   display: block;
@@ -8,24 +8,23 @@
   border: 0;
   padding: 0;
 
-  font-family: fonts.$shareTechMono;
-  font-size: 20px;
+  font-size: 1.25rem;
 
+  background-color: colors.$matterhorn;
   color: white;
-  background-color: #4d4d4d;
 
   cursor: pointer;
 }
 
 .key:hover {
-  outline: 0.05em solid grey;
-  color: black;
+  outline: 1px solid colors.$grey;
+  color: colors.$black;
 }
 
 .key--primary {
-  background-color: #ac3939;
+  background-color: colors.$mediumCarmine;
 }
 
 .key--secondary {
-  background-color: #004466;
+  background-color: colors.$prussianBlue;
 }

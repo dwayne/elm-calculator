@@ -1,3 +1,5 @@
+@use "fonts";
+
 //
 // Universal box sizing, see https://css-tricks.com/box-sizing/#aa-universal-box-sizing.
 //
@@ -14,6 +16,11 @@
   --pad-height: calc(5 * var(--pad-slot-height) + 6 * var(--pad-slot-spacing-around));
 
   --calculator-display-width: var(--pad-width);
+}
+
+html {
+  font-family: fonts.$shareTechMono;
+  font-size: 100%;
 }
 
 .body {

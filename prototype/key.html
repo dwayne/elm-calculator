@@ -8,19 +8,24 @@
 
     <link rel="stylesheet" href="./index.css" />
     <style>
+      :root {
+        --width: 80px;
+        --height: 65px;
+      }
+
       .box {
-        width: 80px;
-        height: 65px;
+        width: var(--width);
+        height: var(--height);
       }
 
       .box-span-column {
-        width: calc(2 * 80px + 1px);
-        height: 65px;
+        width: calc(2 * var(--width) + 1px);
+        height: var(--height);
       }
 
       .box-span-row {
-        width: 80px;
-        height: calc(2 * 65px + 1px);
+        width: var(--width);
+        height: calc(2 * var(--height) + 1px);
       }
     </style>
   </head>
