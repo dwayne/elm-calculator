@@ -1,24 +1,29 @@
+@use "colors";
 @use "fonts";
 
 .display {
-  padding: 5px 5px 10px 5px;
   font-family: fonts.$digital;
+
+  padding: 5px 5px 10px 5px;
+
   overflow-wrap: break-word;
   text-align: right;
-  background-color: black;
+
+  background-color: colors.$black;
 }
 
 .display__line1 {
-  padding-bottom: 2px;
   line-height: 1;
-  font-size: 20px;
-  color: orange;
+  font-size: 1.25rem;
+  color: colors.$orange;
+
+  padding-bottom: 2px;
 }
 
 .display__line2 {
   line-height: 1;
-  font-size: 29px;
-  color: white;
+  font-size: 1.875rem;
+  color: colors.$white;
 }
 
 .display__line1:empty::before,
