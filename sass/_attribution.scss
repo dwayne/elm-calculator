@@ -1,3 +1,4 @@
+@use "colors";
 @use "fonts";
 
 .attribution {
@@ -9,5 +10,5 @@
 
 .attribution__link {
   text-decoration: none;
-  color: #00264d;
+  color: colors.$prussianBlue;
 }
