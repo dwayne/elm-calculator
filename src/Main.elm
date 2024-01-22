@@ -52,26 +52,42 @@ update msg model =
 
 view : Model -> H.Html Msg
 view { calculator } =
-    viewLayout
-        { calculator = Calculator.view Clicked calculator
-        , attribution =
-            viewAttribution
-                { name = "Dwayne Crooks"
-                , url = "https://github.com/dwayne"
-                }
-        }
+    viewLayout <|
+        viewApp
+            { calculator = calculator
+            , name = "Dwayne Crooks"
+            , url = "https://github.com/dwayne"
+            }
 
 
-viewLayout :
-    { calculator : H.Html msg
-    , attribution : H.Html msg
+viewLayout : H.Html msg -> H.Html msg
+viewLayout content =
+    H.div
+        [ HA.class "layout" ]
+        [ H.div
+            [ HA.class "layout__content" ]
+            [ content ]
+        ]
+
+
+viewApp :
+    { calculator : Calculator
+    , name : String
+    , url : String
     }
-    -> H.Html msg
-viewLayout { calculator, attribution } =
-    H.div [ HA.class "layout" ]
-        [ H.div [ HA.class "layout__content" ]
-            [ H.div [ HA.class "layout__calculator" ] [ calculator ]
-            , H.div [ HA.class "layout__attribution" ] [ attribution ]
+    -> H.Html Msg
+viewApp { calculator, name, url } =
+    H.div
+        [ HA.class "app" ]
+        [ H.div
+            [ HA.class "app__calculator" ]
+            [ Calculator.view Clicked calculator ]
+        , H.div
+            [ HA.class "app__attribution" ]
+            [ viewAttribution
+                { name = name
+                , url = url
+                }
             ]
         ]
 
@@ -85,8 +101,10 @@ viewAttribution { name, url } =
     H.p [ HA.class "attribution" ]
         [ H.text "Developed by "
         , H.a
-            [ HA.href url
+            [ HA.class "attribution__link"
+            , HA.href url
             , HA.target "_blank"
+            , HA.title <| "Developed by " ++ name
             ]
             [ H.text name ]
         ]
