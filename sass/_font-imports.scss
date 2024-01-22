@@ -1,8 +1,14 @@
 @import "https://fonts.googleapis.com/css?family=Share+Tech+Mono";
 
 @font-face {
-  font-family: Digital;
-  src: url("https://db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff2") format("woff2"),
-    url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.woff") format("woff"),
-    url("//db.onlinewebfonts.com/t/8e22783d707ad140bffe18b2a3812529.ttf") format("truetype");
-}
+    font-family: "Digital";
+    src: url("./fonts/digital.eot");
+    src: url("./fonts/digital.eot?#iefix")format("embedded-opentype"),
+      url("./fonts/digital.woff")format("woff"),
+      url("./fonts/digital.woff2")format("woff2"),
+      url("./fonts/digital.ttf")format("truetype"),
+      url("./fonts/digital.svg#DigitalICG")format("svg");
+    font-weight:normal;
+    font-style:normal;
+    font-display:swap;
+};

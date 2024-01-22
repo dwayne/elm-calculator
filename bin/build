@@ -20,6 +20,10 @@ prepare () {
   mkdir -p "$out"
 }
 
+build_fonts () {
+  cp -r "$src/fonts" "$out/fonts"
+}
+
 build_html () {
   cp "$src"/html/*.html "$out"
 }
@@ -72,4 +76,4 @@ minify () {
   mv "$min" "$js"
 }
 
-clean && prepare && build_html && build_css && build_js
+clean && prepare && build_fonts && build_html && build_css && build_js
