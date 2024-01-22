@@ -1,11 +1,12 @@
+@use "fonts";
+
 .display {
   padding: 5px 5px 10px 5px;
-  font-family: Digital;
+  font-family: fonts.$digital;
   overflow-wrap: break-word;
   text-align: right;
   background-color: black;
 }
-
 
 .display__line1 {
   padding-bottom: 2px;
@@ -14,13 +15,11 @@
   color: orange;
 }
 
-
 .display__line2 {
   line-height: 1;
   font-size: 29px;
   color: white;
 }
-
 
 .display__line1:empty::before,
 .display__line2:empty::before {

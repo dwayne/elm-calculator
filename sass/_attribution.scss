@@ -1,7 +1,9 @@
+@use "fonts";
+
 .attribution {
   margin: 0;
 
-  font-family: "Share Tech Mono", monospace;
+  font-family: fonts.$shareTechMono;
   text-align: center;
 }
 

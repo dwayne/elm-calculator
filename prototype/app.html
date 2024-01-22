@@ -1,95 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1" />
 
     <title>Calculator</title>
 
-    <link rel="stylesheet" href="/global.css">
-    <link rel="stylesheet" href="/key.css">
-    <link rel="stylesheet" href="/pad.css">
-    <link rel="stylesheet" href="/display.css">
-    <link rel="stylesheet" href="/calculator.css">
-    <link rel="stylesheet" href="/attribution.css">
-    <link rel="stylesheet" href="/layout.css">
+    <link rel="stylesheet" href="./index.css" />
   </head>
-  <body>
+  <body class="body">
     <div class="layout">
-      <div class="layout__wrapper">
-        <div class="layout__main">
-          <div class="layout__calculator">
-            <div class="calculator">
-              <div class="calculator__display">
-                <div class="display">
-                  <div class="display__line1">22/7=3.(142857)</div>
-                  <div class="display__line2">3.(142857)</div>
-                </div>
+      <div class="layout__content">
+        <div class="layout__calculator">
+          <div class="calculator">
+            <div class="calculator__display">
+              <div class="display">
+                <div class="display__line1">22/7=3.(142857)</div>
+                <div class="display__line2">3.(142857)</div>
               </div>
-              <div class="calculator__pad">
-                <div class="pad">
-                  <div class="pad__slot r0 c0 colspan2">
-                    <button class="key key--primary">AC</button>
-                  </div>
-                  <div class="pad__slot r0 c2">
-                    <button class="key">÷</button>
-                  </div>
-                  <div class="pad__slot r0 c3">
-                    <button class="key">×</button>
-                  </div>
+            </div>
+            <div class="calculator__pad">
+              <div class="pad">
+                <div class="pad__slot r0 c0 colspan2">
+                  <button class="key key--primary">AC</button>
+                </div>
+                <div class="pad__slot r0 c2">
+                  <button class="key">÷</button>
+                </div>
+                <div class="pad__slot r0 c3">
+                  <button class="key">×</button>
+                </div>
 
-                  <div class="pad__slot r1 c0">
-                    <button class="key">7</button>
-                  </div>
-                  <div class="pad__slot r1 c1">
-                    <button class="key">8</button>
-                  </div>
-                  <div class="pad__slot r1 c2">
-                    <button class="key">9</button>
-                  </div>
-                  <div class="pad__slot r1 c3">
-                    <button class="key">-</button>
-                  </div>
+                <div class="pad__slot r1 c0">
+                  <button class="key">7</button>
+                </div>
+                <div class="pad__slot r1 c1">
+                  <button class="key">8</button>
+                </div>
+                <div class="pad__slot r1 c2">
+                  <button class="key">9</button>
+                </div>
+                <div class="pad__slot r1 c3">
+                  <button class="key">-</button>
+                </div>
 
-                  <div class="pad__slot r2 c0">
-                    <button class="key">4</button>
-                  </div>
-                  <div class="pad__slot r2 c1">
-                    <button class="key">5</button>
-                  </div>
-                  <div class="pad__slot r2 c2">
-                    <button class="key">6</button>
-                  </div>
-                  <div class="pad__slot r2 c3">
-                    <button class="key">+</button>
-                  </div>
+                <div class="pad__slot r2 c0">
+                  <button class="key">4</button>
+                </div>
+                <div class="pad__slot r2 c1">
+                  <button class="key">5</button>
+                </div>
+                <div class="pad__slot r2 c2">
+                  <button class="key">6</button>
+                </div>
+                <div class="pad__slot r2 c3">
+                  <button class="key">+</button>
+                </div>
 
-                  <div class="pad__slot r3 c0">
-                    <button class="key">1</button>
-                  </div>
-                  <div class="pad__slot r3 c1">
-                    <button class="key">2</button>
-                  </div>
-                  <div class="pad__slot r3 c2">
-                    <button class="key">3</button>
-                  </div>
-                  <div class="pad__slot r3 c3 rowspan2">
-                    <button class="key key--secondary">=</button>
-                  </div>
+                <div class="pad__slot r3 c0">
+                  <button class="key">1</button>
+                </div>
+                <div class="pad__slot r3 c1">
+                  <button class="key">2</button>
+                </div>
+                <div class="pad__slot r3 c2">
+                  <button class="key">3</button>
+                </div>
+                <div class="pad__slot r3 c3 rowspan2">
+                  <button class="key key--secondary">=</button>
+                </div>
 
-                  <div class="pad__slot r4 c0 colspan2">
-                    <button class="key">0</button>
-                  </div>
-                  <div class="pad__slot r4 c2">
-                    <button class="key">.</button>
-                  </div>
+                <div class="pad__slot r4 c0 colspan2">
+                  <button class="key">0</button>
+                </div>
+                <div class="pad__slot r4 c2">
+                  <button class="key">.</button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="layout__attribution">
-            <p class="attribution">Developed by <a href="https://github.com/dwayne/" target="_blank" class="attribution__link">Dwayne Crooks</a></p>
-          </div>
+        </div>
+        <div class="layout__attribution">
+          <p class="attribution">Developed by <a href="https://github.com/dwayne/" target="_blank" class="attribution__link">Dwayne Crooks</a></p>
         </div>
       </div>
     </div>

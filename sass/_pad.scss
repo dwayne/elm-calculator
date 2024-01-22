@@ -1,13 +1,3 @@
-:root {
-  --pad-slot-width: 80px;
-  --pad-slot-height: 65px;
-  --pad-slot-spacing-around: 1px;
-
-  --pad-width: calc(4 * var(--pad-slot-width) + 5 * var(--pad-slot-spacing-around));
-  --pad-height: calc(5 * var(--pad-slot-height) + 6 * var(--pad-slot-spacing-around));
-}
-
-
 .pad {
   position: relative;
 
@@ -17,14 +7,12 @@
   background-color: black;
 }
 
-
 .pad__slot {
   position: absolute;
 
   width: var(--pad-slot-width);
   height: var(--pad-slot-height);
 }
-
 
 .pad__slot.r0 {
   top: var(--pad-slot-spacing-around);

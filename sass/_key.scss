@@ -1,3 +1,5 @@
+@use "fonts";
+
 .key {
   display: block;
   width: 100%;
@@ -6,7 +8,7 @@
   border: 0;
   padding: 0;
 
-  font-family: "Share Tech Mono", monospace;
+  font-family: fonts.$shareTechMono;
   font-size: 20px;
 
   color: white;
@@ -15,12 +17,10 @@
   cursor: pointer;
 }
 
-
 .key:hover {
   outline: 0.05em solid grey;
   color: black;
 }
-
 
 .key--primary {
   background-color: #ac3939;

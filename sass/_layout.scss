@@ -1,0 +1,22 @@
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+.layout__content {
+  box-sizing: border-box;
+  padding: 20px;
+  //
+  // Ensures the padding is shown when the content overflows its container.
+  //
+  display: inline-block;
+
+  //
+  // Vertically and horizontally center.
+  //
+  margin: auto;
+}
+
+.layout__calculator {
+  margin-bottom: 15px;
+}
