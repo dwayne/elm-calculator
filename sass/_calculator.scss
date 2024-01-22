@@ -1,10 +1,12 @@
+@use "colors";
+
 .calculator {
   display: inline-flex;
   flex-direction: column;
 
-  border: 2px solid #47476b;
+  border: 2px solid colors.$cornFlowerBlue;
   padding: 3px;
-  background-color: black;
+  background-color: colors.$black;
 }
 
 .calculator__display {
