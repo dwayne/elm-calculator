@@ -1,3 +1,4 @@
+@use "colors";
 @use "fonts";
 
 //
@@ -25,5 +26,5 @@ html {
 
 .body {
   margin: 0;
-  background-color: #c2c2d6;
+  background-color: colors.$lavenderGrey;
 }
