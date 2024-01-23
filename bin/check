@@ -35,6 +35,12 @@ if ! build &>/dev/null; then
   build
 fi
 
+# Test
+
+if ! run-tests &>/dev/null; then
+  run-tests
+fi
+
 # Review
 
 if ! review &>/dev/null; then

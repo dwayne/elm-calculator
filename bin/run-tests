@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+#
+# Usage: run-tests [args-for-elm-test]
+#
+
+set -euo pipefail
+
+cd "${project:?}" && elm-test "$@"
