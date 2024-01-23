@@ -180,17 +180,6 @@ eval =
     E.eval << List.reverse
 
 
-toRational : Decimal -> Rational
-toRational n =
-    case n of
-        Whole w ->
-            Rational.fromInt w
-
-        Fractional w f p ->
-            Maybe.map2 Rational.add (Rational.new w 1) (Rational.new f p)
-                |> Maybe.withDefault Rational.zero
-
-
 type alias Output =
     { line1 : String
     , line2 : String
@@ -276,3 +265,14 @@ toPaddedDecimalString n =
 toExpr : List Token -> String
 toExpr =
     String.concat << List.map Token.toString << List.reverse
+
+
+toRational : Decimal -> Rational
+toRational n =
+    case n of
+        Whole w ->
+            Rational.fromInt w
+
+        Fractional w f p ->
+            Maybe.map2 Rational.add (Rational.new w 1) (Rational.new f p)
+                |> Maybe.withDefault Rational.zero
