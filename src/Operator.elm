@@ -1,4 +1,4 @@
-module Operator exposing (Operator(..), toMathString, toString)
+module Operator exposing (Operator(..), toString)
 
 
 type Operator
@@ -10,22 +10,6 @@ type Operator
 
 toString : Operator -> String
 toString operator =
-    case operator of
-        Add ->
-            "+"
-
-        Sub ->
-            "-"
-
-        Mul ->
-            "*"
-
-        Div ->
-            "/"
-
-
-toMathString : Operator -> String
-toMathString operator =
     case operator of
         Add ->
             "+"
