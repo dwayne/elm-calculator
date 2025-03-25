@@ -1,48 +1,61 @@
 #!/usr/bin/env bash
 
 #
-# Usage: check
+# Usage: check [-v]
 #
 
-set -euo pipefail
+set -uo pipefail
+
+
+# OPTIONS
+
+
+verbose=0
+
+while getopts "v" opt; do
+  case "$opt" in
+    v) verbose=$(( verbose + 1 )) ;;
+    *) exit 1 ;;
+  esac
+done
+shift $(( OPTIND - 1 ))
+
+
+# MAIN
+
+
+main () {
+  run check-scripts
+  run format --validate
+  run test-elm
+
+  display "Everything looks good!"
+}
+
+run () {
+  display "Running \"$*\"..."
+
+  command=$*
+  output=$($command 2>&1)
+  error=$?
+  if (( error )); then
+    fail "$output"
+  fi
+}
+
+display () {
+  if ((verbose)); then
+    echo "$1"
+  fi
+}
 
 fail () {
   echo "$1" >&2
   exit 1
 }
 
-# Check scripts
 
-if ! check-scripts &>/dev/null; then
-  check-scripts
-fi
+# RUN
 
-# Format
 
-if ! format --validate &>/dev/null; then
-  fail "Your code needs to be formatted. Run: format"
-fi
-
-# Build prototype
-
-if ! build-prototype &>/dev/null; then
-  build-prototype
-fi
-
-# Build
-
-if ! build &>/dev/null; then
-  build
-fi
-
-# Test
-
-if ! run-tests &>/dev/null; then
-  run-tests
-fi
-
-# Review
-
-if ! review &>/dev/null; then
-  review
-fi
+main
