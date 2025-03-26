@@ -1,8 +1,8 @@
-@use "colors";
-@use "fonts";
+@use "../colors";
+@use "../typography";
 
 .display {
-  font-family: fonts.$digital;
+  font-family: typography.$digital;
 
   padding: 5px 5px 10px 5px;
 

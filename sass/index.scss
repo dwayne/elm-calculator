@@ -1,10 +1,11 @@
-@use "font-imports";
+@use "fonts";
 @use "base";
-@use "key";
-@use "pad";
-@use "display";
-@use "calculator";
-@use "attribution";
-@use "app";
-@use "layout";
-@use "github";
+
+@use "blocks/key";
+@use "blocks/pad";
+@use "blocks/display";
+@use "blocks/calculator";
+@use "blocks/attribution";
+@use "blocks/app";
+@use "blocks/layout";
+@use "blocks/github";

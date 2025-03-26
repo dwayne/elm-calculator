@@ -78,5 +78,6 @@ alias c=check
 alias f=format
 alias t=test-elm
 alias b=build-development
+alias bp=build-prototype
 alias s=serve-development
 alias sp=serve-prototype
