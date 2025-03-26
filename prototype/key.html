@@ -18,13 +18,11 @@
         height: var(--height);
       }
 
-      .box-span-column {
+      .box--span-column {
         width: calc(2 * var(--width) + 1px);
-        height: var(--height);
       }
 
-      .box-span-row {
-        width: var(--width);
+      .box--span-row {
         height: calc(2 * var(--height) + 1px);
       }
     </style>
@@ -34,13 +32,17 @@
 
     <h2>Default</h2>
 
+    <h3>Unconstrained</h3>
+
     <p>
-      <button class="key">8</button>
+      <button class="key" type="button">8</button>
     </p>
+
+    <h3>Constrained</h3>
 
     <p>
       <div class="box">
-        <button class="key">8</button>
+        <button class="key" type="button">8</button>
       </div>
     </p>
 
@@ -48,7 +50,7 @@
 
     <p>
       <div class="box">
-        <button class="key key--primary">AC</button>
+        <button class="key key--primary" type="button">AC</button>
       </div>
     </p>
 
@@ -56,23 +58,23 @@
 
     <p>
       <div class="box">
-        <button class="key key--secondary">=</button>
+        <button class="key key--secondary" type="button">=</button>
       </div>
     </p>
 
     <h2>Span: Columns</h2>
 
     <p>
-      <div class="box-span-column">
-        <button class="key key--primary">AC</button>
+      <div class="box box--span-column">
+        <button class="key key--primary" type="button">AC</button>
       </div>
     </p>
 
     <h2>Span: Rows</h2>
 
     <p>
-      <div class="box-span-row">
-        <button class="key key--secondary">=</button>
+      <div class="box box--span-row">
+        <button class="key key--secondary" type="button">=</button>
       </div>
     </p>
   </body>
