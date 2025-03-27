@@ -1,0 +1,25 @@
+@mixin centered-column($gap) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $gap;
+}
+
+@mixin absolute-center($padding, $height: 100vh) {
+  display: flex;
+  height: $height;
+
+  &__wrapper {
+    padding: $padding;
+
+    //
+    // Ensures the padding is shown when the content overflows its container.
+    //
+    display: inline-block;
+
+    //
+    // Vertically and horizontally center.
+    //
+    margin: auto;
+  }
+}
