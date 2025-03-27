@@ -2,31 +2,33 @@
 @use "../typography";
 
 .display {
-  font-family: typography.$digital;
-
   padding: 5px 5px 10px 5px;
 
-  overflow-wrap: break-word;
+  font-family: typography.$digital;
+
   text-align: right;
+  overflow-wrap: break-word;
 
   background-color: colors.$black;
-}
-
-.display__line1 {
-  line-height: 1;
-  font-size: 1.25rem;
-  color: colors.$orange;
-
-  padding-bottom: 2px;
-}
-
-.display__line2 {
-  line-height: 1;
-  font-size: 1.875rem;
-  color: colors.$white;
 }
 
 .display__line1:empty::before,
 .display__line2:empty::before {
   content: "\00A0";
+}
+
+.display__line1 {
+  padding-bottom: 2px;
+
+  font-size: 1.25rem;
+  line-height: 1;
+
+  color: colors.$orange;
+}
+
+.display__line2 {
+  font-size: 1.875rem;
+  line-height: 1;
+
+  color: colors.$white;
 }
