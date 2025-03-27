@@ -1,4 +1,5 @@
 @use "../colors";
+@use "./pad";
 
 .calculator {
   display: inline-flex;
@@ -6,9 +7,10 @@
 
   border: 2px solid colors.$cornFlowerBlue;
   padding: 3px;
+
   background-color: colors.$black;
 }
 
 .calculator__display {
-  width: var(--calculator-display-width);
+  width: pad.$pad-width;
 }

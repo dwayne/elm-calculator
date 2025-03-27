@@ -8,17 +8,6 @@
   box-sizing: border-box;
 }
 
-:root {
-  --pad-slot-width: 80px;
-  --pad-slot-height: 65px;
-  --pad-slot-spacing-around: 1px;
-
-  --pad-width: calc(4 * var(--pad-slot-width) + 5 * var(--pad-slot-spacing-around));
-  --pad-height: calc(5 * var(--pad-slot-height) + 6 * var(--pad-slot-spacing-around));
-
-  --calculator-display-width: var(--pad-width);
-}
-
 html {
   font-family: typography.$shareTechMono;
   font-size: 100%;
