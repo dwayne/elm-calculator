@@ -20,14 +20,11 @@ type alias State =
     }
 
 
-
---
--- eval is an implementation of Edsger Dijkstra's shunting yard algorithm.
---
-
-
 eval : List Token -> Answer
 eval tokens =
+    --
+    -- An implementation of Edsger Dijkstra's shunting yard algorithm.
+    --
     let
         state =
             { operators = Stack.new
