@@ -1,11 +1,11 @@
-module Test.Evaluator exposing (suite)
+module Test.Data.Evaluator exposing (suite)
 
-import Evaluator as E
+import Data.Evaluator as E
+import Data.Operator exposing (Operator(..))
+import Data.Token as Token exposing (Token)
 import Expect exposing (Expectation)
-import Operator exposing (Operator(..))
-import Rational exposing (Rational)
+import Lib.Rational as Rational exposing (Rational)
 import Test exposing (..)
-import Token exposing (Token)
 
 
 suite : Test

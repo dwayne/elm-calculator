@@ -1,7 +1,7 @@
-module Test.Rational exposing (suite)
+module Test.Lib.Rational exposing (suite)
 
 import Expect
-import Rational exposing (Rational)
+import Lib.Rational as Rational exposing (Rational)
 import Test exposing (..)
 
 

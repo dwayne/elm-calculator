@@ -1,4 +1,4 @@
-module Digit exposing (Digit(..), toInt, toString)
+module Data.Digit exposing (Digit(..), toInt, toString)
 
 
 type Digit

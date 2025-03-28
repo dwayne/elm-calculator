@@ -1,4 +1,4 @@
-module Stack exposing (Stack, isEmpty, new, pop, push)
+module Lib.Stack exposing (Stack, isEmpty, new, pop, push)
 
 
 type Stack a

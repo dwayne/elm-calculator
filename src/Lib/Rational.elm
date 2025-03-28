@@ -1,4 +1,4 @@
-module Rational exposing
+module Lib.Rational exposing
     ( Rational
     , add
     , div

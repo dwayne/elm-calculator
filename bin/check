@@ -28,6 +28,7 @@ main () {
   run check-scripts
   run format --validate
   run test-elm
+  run test-elm-main
 
   display "Everything looks good!"
 }

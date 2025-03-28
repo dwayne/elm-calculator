@@ -1,4 +1,4 @@
-module Operator exposing (Operator(..), toString)
+module Data.Operator exposing (Operator(..), toString)
 
 
 type Operator

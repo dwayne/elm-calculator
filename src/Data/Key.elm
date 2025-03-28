@@ -1,7 +1,7 @@
-module Key exposing (Key(..), toString)
+module Data.Key exposing (Key(..), toString)
 
-import Digit exposing (Digit)
-import Operator exposing (Operator)
+import Data.Digit as Digit exposing (Digit)
+import Data.Operator as Operator exposing (Operator)
 
 
 type Key

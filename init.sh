@@ -39,6 +39,10 @@ test-elm () {
   cd "$project" && elm-test "$@"
 }
 
+test-elm-main () {
+  test-elm make src/Main.elm
+}
+
 build-development () {
   build "$build_development"
 }
@@ -65,7 +69,7 @@ deploy-production () {
 
 export -f \
   clean \
-  check-scripts format test-elm \
+  check-scripts format test-elm test-elm-main \
   build-development build-production \
   serve-prototype serve-development serve-production \
   deploy-production

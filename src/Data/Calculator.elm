@@ -1,4 +1,4 @@
-module Calculator exposing
+module Data.Calculator exposing
     ( Calculator
     , Output
     , new
@@ -6,12 +6,12 @@ module Calculator exposing
     , toOutput
     )
 
-import Digit
-import Evaluator as E
-import Key exposing (Key(..))
-import Operator exposing (Operator)
-import Rational exposing (Rational)
-import Token exposing (Token)
+import Data.Digit as Digit
+import Data.Evaluator as E
+import Data.Key exposing (Key(..))
+import Data.Operator as Operator exposing (Operator)
+import Data.Token as Token exposing (Token)
+import Lib.Rational as Rational exposing (Rational)
 
 
 type Calculator

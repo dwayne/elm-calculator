@@ -1,9 +1,9 @@
-module Evaluator exposing (Answer, Error(..), eval)
+module Data.Evaluator exposing (Answer, Error(..), eval)
 
-import Operator exposing (Operator(..))
-import Rational exposing (Rational)
-import Stack exposing (Stack)
-import Token exposing (Token(..))
+import Data.Operator exposing (Operator(..))
+import Data.Token exposing (Token(..))
+import Lib.Rational as Rational exposing (Rational)
+import Lib.Stack as Stack exposing (Stack)
 
 
 type alias Answer =

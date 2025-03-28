@@ -1,7 +1,7 @@
-module Token exposing (Token(..), toString)
+module Data.Token exposing (Token(..), toString)
 
-import Operator exposing (Operator)
-import Rational exposing (Rational)
+import Data.Operator as Operator exposing (Operator)
+import Lib.Rational as Rational exposing (Rational)
 
 
 type Token
