@@ -8,6 +8,7 @@
     "elmPackages.elm": "latest",
     "elmPackages.elm-format": "latest",
     "elmPackages.elm-optimize-level-2": "latest",
+    "elmPackages.elm-review": "latest",
     "elmPackages.elm-test": "latest",
     "shellcheck": "latest",
     "terser": "latest"
@@ -19,7 +20,7 @@
   },
   "shell": {
     "init_hook": [
-      "[ -f $project/init.sh ] && . $project/init.sh"
+      ". $project/init.sh"
     ]
   }
 }

@@ -1,11 +1,11 @@
 module Test.Data.Calculator exposing (suite)
 
 import Data.Calculator as Calculator
-import Data.Digit as Digit exposing (Digit(..))
-import Data.Key as Key exposing (Key(..))
-import Data.Operator as Operator exposing (Operator(..))
+import Data.Digit exposing (Digit(..))
+import Data.Key exposing (Key(..))
+import Data.Operator exposing (Operator(..))
 import Expect
-import Test exposing (..)
+import Test exposing (Test, describe, test)
 
 
 suite : Test

@@ -29,6 +29,7 @@ main () {
   run format --validate
   run test-elm
   run test-elm-main
+  run review
 
   display "Everything looks good!"
 }

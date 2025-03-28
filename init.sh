@@ -32,7 +32,7 @@ check-scripts () {
 }
 
 format () {
-  cd "$project" && elm-format src tests "${@:---yes}"
+  cd "$project" && elm-format review/src src tests "${@:---yes}"
 }
 
 test-elm () {
@@ -41,6 +41,10 @@ test-elm () {
 
 test-elm-main () {
   test-elm make src/Main.elm
+}
+
+review () {
+  cd "$project" && elm-review review/src src tests
 }
 
 build-development () {
@@ -69,7 +73,7 @@ deploy-production () {
 
 export -f \
   clean \
-  check-scripts format test-elm test-elm-main \
+  check-scripts format test-elm test-elm-main review \
   build-development build-production \
   serve-prototype serve-development serve-production \
   deploy-production
@@ -81,6 +85,7 @@ export -f \
 alias c=check
 alias f=format
 alias t=test-elm
+alias r=review
 alias b=build-development
 alias bp=build-prototype
 alias s=serve-development

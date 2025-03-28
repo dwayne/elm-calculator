@@ -5,7 +5,7 @@ import Data.Operator exposing (Operator(..))
 import Data.Token as Token exposing (Token)
 import Expect exposing (Expectation)
 import Lib.Rational as Rational exposing (Rational)
-import Test exposing (..)
+import Test exposing (Test, describe, test)
 
 
 suite : Test

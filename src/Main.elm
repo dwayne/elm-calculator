@@ -4,8 +4,6 @@ import Browser
 import Data.Calculator as Calculator exposing (Calculator)
 import Data.Key exposing (Key)
 import Html as H
-import Html.Attributes as HA
-import Html.Events as HE
 import View.Page as Page
 
 
