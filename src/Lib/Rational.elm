@@ -11,7 +11,7 @@ module Lib.Rational exposing
     , zero
     )
 
-import Set exposing (Set)
+import Dict exposing (Dict)
 
 
 type Rational
@@ -134,50 +134,52 @@ toDecimalString (Rational n d) =
 
 decimalRep : Int -> Int -> String
 decimalRep n d =
-    decimalRepHelper n d [] Set.empty
+    decimalRepHelper n d [] Dict.empty
 
 
-decimalRepHelper : Int -> Int -> List ( Int, Int ) -> Set ( Int, Int ) -> String
-decimalRepHelper n d terms seen =
-    let
-        n10 =
-            n * 10
+decimalRepHelper : Int -> Int -> List ( Int, Int ) -> Dict ( Int, Int ) ( Int, Int ) -> String
+decimalRepHelper n d terms memo =
+    case Dict.get ( n, d ) memo of
+        Just ( q, r ) ->
+            displayRepeating ( q, r ) terms ")"
 
-        q =
-            n10 // d
+        Nothing ->
+            let
+                n10 =
+                    n * 10
 
-        r =
-            modBy d n10
-    in
-    if r == 0 then
-        displayTerminating (List.reverse (( q, r ) :: terms))
+                q =
+                    n10 // d
 
-    else if Set.member ( q, r ) seen then
-        displayRepeating (List.reverse terms) ( q, r )
+                r =
+                    modBy d n10
+            in
+            if r == 0 then
+                displayTerminating (( q, r ) :: terms) ""
 
-    else
-        decimalRepHelper
-            r
-            d
-            (( q, r ) :: terms)
-            (Set.insert ( q, r ) seen)
+            else
+                decimalRepHelper
+                    r
+                    d
+                    (( q, r ) :: terms)
+                    (Dict.insert ( n, d ) ( q, r ) memo)
 
 
-displayTerminating : List ( Int, Int ) -> String
-displayTerminating terms =
+displayTerminating : List ( Int, Int ) -> String -> String
+displayTerminating terms output =
     case terms of
         [] ->
-            ""
+            output
 
         ( q, _ ) :: rest ->
-            String.fromInt q ++ displayTerminating rest
+            displayTerminating rest (String.fromInt q ++ output)
 
 
-displayRepeating : List ( Int, Int ) -> ( Int, Int ) -> String
-displayRepeating terms marker =
+displayRepeating : ( Int, Int ) -> List ( Int, Int ) -> String -> String
+displayRepeating marker terms output =
     case terms of
         [] ->
-            ")"
+            output
 
         ( q, r ) :: rest ->
             let
@@ -188,4 +190,4 @@ displayRepeating terms marker =
                     else
                         String.fromInt q
             in
-            s ++ displayRepeating rest marker
+            displayRepeating marker rest (s ++ output)
