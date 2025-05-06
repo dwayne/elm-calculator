@@ -137,9 +137,9 @@ decimalRep n d =
     decimalRepHelper n d [] Dict.empty
 
 
-decimalRepHelper : Int -> Int -> List ( Int, Int ) -> Dict ( Int, Int ) ( Int, Int ) -> String
+decimalRepHelper : Int -> Int -> List ( Int, Int ) -> Dict Int ( Int, Int ) -> String
 decimalRepHelper n d terms memo =
-    case Dict.get ( n, d ) memo of
+    case Dict.get n memo of
         Just ( q, r ) ->
             displayRepeating ( q, r ) terms ")"
 
@@ -162,7 +162,7 @@ decimalRepHelper n d terms memo =
                     r
                     d
                     (( q, r ) :: terms)
-                    (Dict.insert ( n, d ) ( q, r ) memo)
+                    (Dict.insert n ( q, r ) memo)
 
 
 displayTerminating : List ( Int, Int ) -> String -> String
