@@ -2,12 +2,17 @@ module Data.Evaluator exposing (Answer, Error(..), eval)
 
 import Data.Operator exposing (Operator(..))
 import Data.Token exposing (Token(..))
+import Lib.Eval as Eval
 import Lib.Rational as Rational exposing (Rational)
 import Lib.Stack as Stack exposing (Stack)
 
 
 type alias Answer =
     Result Error Rational
+
+
+type alias Eval a =
+    Eval.Eval Error State a
 
 
 type Error
@@ -21,89 +26,95 @@ type alias State =
 
 
 eval : List Token -> Answer
-eval tokens =
+eval =
     --
     -- Evaluates infix expressions using Dijkstra's shunting yard algorithm.
     --
-    let
-        state =
+    evalTokens
+        >> Eval.followedBy getValue
+        >> Eval.run
             { operands = Stack.new
             , operators = Stack.new
             }
-    in
-    evalTokens tokens state
-        |> Result.andThen
-            (\{ operands, operators } ->
-                case ( Stack.pop operands, Stack.isEmpty operators ) of
-                    ( Just ( value, newOperands ), True ) ->
-                        if Stack.isEmpty newOperands then
-                            Ok value
-
-                        else
-                            Err SyntaxError
-
-                    _ ->
-                        Err SyntaxError
-            )
 
 
-evalTokens : List Token -> State -> Result Error State
-evalTokens tokens state =
+getValue : Eval Rational
+getValue =
+    Eval.actOnState
+        (\state ->
+            case ( Stack.pop state.operands, Stack.isEmpty state.operators ) of
+                ( Just ( value, newOperands ), True ) ->
+                    if Stack.isEmpty newOperands then
+                        ( Eval.succeed value, { state | operands = newOperands } )
+
+                    else
+                        ( Eval.fail SyntaxError, state )
+
+                _ ->
+                    ( Eval.fail SyntaxError, state )
+        )
+
+
+evalTokens : List Token -> Eval ()
+evalTokens tokens =
     case tokens of
         [] ->
-            evalOperators state
+            evalOperators
 
         token :: restTokens ->
-            evalToken token state
-                |> Result.andThen (evalTokens restTokens)
+            evalToken token
+                |> Eval.followedBy (evalTokens restTokens)
 
 
-evalToken : Token -> State -> Result Error State
-evalToken token state =
+evalToken : Token -> Eval ()
+evalToken token =
     case token of
         Number n ->
-            pushOperand n state
+            pushOperand n
 
         Operator op ->
-            evalDominantOperators op state
+            evalDominantOperators op
 
 
-evalDominantOperators : Operator -> State -> Result Error State
-evalDominantOperators op1 state0 =
+evalDominantOperators : Operator -> Eval ()
+evalDominantOperators op1 =
     popOperator
-        (\op2 state1 ->
+        (\op2 ->
             if precedence op2 >= precedence op1 then
-                evalOperation op2 state1
-                    |> Result.andThen (evalDominantOperators op1)
+                evalOperation op2
+                    |> Eval.followedBy (evalDominantOperators op1)
 
             else
-                pushOperator op1 state0
+                pushOperator op2
+                    |> Eval.followedBy (pushOperator op1)
         )
         (pushOperator op1)
-        state0
 
 
-evalOperators : State -> Result Error State
+evalOperators : Eval ()
 evalOperators =
     popOperator
-        (\op -> evalOperation op >> Result.andThen evalOperators)
-        Ok
+        (\op ->
+            evalOperation op
+                |> Eval.followedBy evalOperators
+        )
+        (Eval.succeed ())
 
 
-evalOperation : Operator -> State -> Result Error State
-evalOperation op state0 =
-    popOperand state0
-        |> Result.andThen
-            (\( right, state1 ) ->
-                popOperand state1
-                    |> Result.andThen
-                        (\( left, state2 ) ->
-                            evalBinOp op left right state2
+evalOperation : Operator -> Eval ()
+evalOperation op =
+    popOperand
+        |> Eval.andThen
+            (\right ->
+                popOperand
+                    |> Eval.andThen
+                        (\left ->
+                            evalBinOp op left right
                         )
             )
 
 
-evalBinOp : Operator -> Rational -> Rational -> State -> Result Error State
+evalBinOp : Operator -> Rational -> Rational -> Eval ()
 evalBinOp op a b =
     pushOperand <|
         case op of
@@ -120,34 +131,40 @@ evalBinOp op a b =
                 Rational.div a b
 
 
-pushOperand : Rational -> State -> Result Error State
-pushOperand q state =
-    Ok { state | operands = Stack.push q state.operands }
+pushOperand : Rational -> Eval ()
+pushOperand q =
+    Eval.modifyState (\state -> { state | operands = Stack.push q state.operands })
 
 
-popOperand : State -> Result Error ( Rational, State )
-popOperand state =
-    case Stack.pop state.operands of
-        Just ( q, operands ) ->
-            Ok ( q, { state | operands = operands } )
+popOperand : Eval Rational
+popOperand =
+    Eval.actOnState
+        (\state ->
+            case Stack.pop state.operands of
+                Just ( q, operands ) ->
+                    ( Eval.succeed q, { state | operands = operands } )
 
-        Nothing ->
-            Err SyntaxError
-
-
-pushOperator : Operator -> State -> Result Error State
-pushOperator op state =
-    Ok { state | operators = Stack.push op state.operators }
+                Nothing ->
+                    ( Eval.fail SyntaxError, state )
+        )
 
 
-popOperator : (Operator -> State -> Result Error State) -> (State -> Result Error State) -> State -> Result Error State
-popOperator onOperator onEmpty state =
-    case Stack.pop state.operators of
-        Just ( op, operators ) ->
-            onOperator op { state | operators = operators }
+pushOperator : Operator -> Eval ()
+pushOperator op =
+    Eval.modifyState (\state -> { state | operators = Stack.push op state.operators })
 
-        Nothing ->
-            onEmpty state
+
+popOperator : (Operator -> Eval ()) -> Eval () -> Eval ()
+popOperator onOperator onEmpty =
+    Eval.actOnState
+        (\state ->
+            case Stack.pop state.operators of
+                Just ( op, operators ) ->
+                    ( onOperator op, { state | operators = operators } )
+
+                Nothing ->
+                    ( onEmpty, state )
+        )
 
 
 precedence : Operator -> Int
