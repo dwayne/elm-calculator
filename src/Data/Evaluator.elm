@@ -15,29 +15,29 @@ type Error
 
 
 type alias State =
-    { operators : Stack Operator
-    , operands : Stack Rational
+    { operands : Stack Rational
+    , operators : Stack Operator
     }
 
 
 eval : List Token -> Answer
 eval tokens =
     --
-    -- An implementation of Edsger Dijkstra's shunting yard algorithm.
+    -- Evaluates infix expressions using Dijkstra's shunting yard algorithm.
     --
     let
         state =
-            { operators = Stack.new
-            , operands = Stack.new
+            { operands = Stack.new
+            , operators = Stack.new
             }
     in
     evalTokens tokens state
         |> Result.andThen
-            (\{ operators, operands } ->
-                case ( Stack.isEmpty operators, Stack.pop operands ) of
-                    ( True, Just ( r, newOperands ) ) ->
+            (\{ operands, operators } ->
+                case ( Stack.pop operands, Stack.isEmpty operators ) of
+                    ( Just ( value, newOperands ), True ) ->
                         if Stack.isEmpty newOperands then
-                            Ok r
+                            Ok value
 
                         else
                             Err SyntaxError
@@ -69,35 +69,25 @@ evalToken token state =
 
 
 evalDominantOperators : Operator -> State -> Result Error State
-evalDominantOperators op state =
-    if hasOperator state then
-        popOperator state
-            |> Result.andThen
-                (\( topOp, newState ) ->
-                    if precedence topOp >= precedence op then
-                        evalOperation topOp newState
-                            |> Result.andThen (evalDominantOperators op)
+evalDominantOperators op1 state0 =
+    popOperator
+        (\op2 state1 ->
+            if precedence op2 >= precedence op1 then
+                evalOperation op2 state1
+                    |> Result.andThen (evalDominantOperators op1)
 
-                    else
-                        pushOperator op state
-                )
-
-    else
-        pushOperator op state
+            else
+                pushOperator op1 state0
+        )
+        (pushOperator op1)
+        state0
 
 
 evalOperators : State -> Result Error State
-evalOperators state =
-    if hasOperator state then
-        popOperator state
-            |> Result.andThen
-                (\( op, newState ) ->
-                    evalOperation op newState
-                        |> Result.andThen evalOperators
-                )
-
-    else
-        Ok state
+evalOperators =
+    popOperator
+        (\op -> evalOperation op >> Result.andThen evalOperators)
+        Ok
 
 
 evalOperation : Operator -> State -> Result Error State
@@ -114,39 +104,35 @@ evalOperation op state0 =
 
 
 evalBinOp : Operator -> Rational -> Rational -> State -> Result Error State
-evalBinOp op a b state =
-    case op of
-        Add ->
-            pushOperand (Rational.add a b) state
+evalBinOp op a b =
+    pushOperand <|
+        case op of
+            Add ->
+                Rational.add a b
 
-        Sub ->
-            pushOperand (Rational.sub a b) state
+            Sub ->
+                Rational.sub a b
 
-        Mul ->
-            pushOperand (Rational.mul a b) state
+            Mul ->
+                Rational.mul a b
 
-        Div ->
-            pushOperand (Rational.div a b) state
+            Div ->
+                Rational.div a b
 
 
 pushOperand : Rational -> State -> Result Error State
-pushOperand r state =
-    Ok { state | operands = Stack.push r state.operands }
+pushOperand q state =
+    Ok { state | operands = Stack.push q state.operands }
 
 
 popOperand : State -> Result Error ( Rational, State )
 popOperand state =
     case Stack.pop state.operands of
+        Just ( q, operands ) ->
+            Ok ( q, { state | operands = operands } )
+
         Nothing ->
             Err SyntaxError
-
-        Just ( op, operands ) ->
-            Ok ( op, { state | operands = operands } )
-
-
-hasOperator : State -> Bool
-hasOperator { operators } =
-    not <| Stack.isEmpty operators
 
 
 pushOperator : Operator -> State -> Result Error State
@@ -154,14 +140,14 @@ pushOperator op state =
     Ok { state | operators = Stack.push op state.operators }
 
 
-popOperator : State -> Result Error ( Operator, State )
-popOperator state =
+popOperator : (Operator -> State -> Result Error State) -> (State -> Result Error State) -> State -> Result Error State
+popOperator onOperator onEmpty state =
     case Stack.pop state.operators of
-        Nothing ->
-            Err SyntaxError
-
         Just ( op, operators ) ->
-            Ok ( op, { state | operators = operators } )
+            onOperator op { state | operators = operators }
+
+        Nothing ->
+            onEmpty state
 
 
 precedence : Operator -> Int
