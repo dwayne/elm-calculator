@@ -1,0 +1,30 @@
+@use "../colors";
+
+/*button*/.key {
+  border: 0;
+  padding: 0;
+
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  font-size: 1.25rem;
+
+  background-color: colors.$matterhorn;
+  color: colors.$white;
+
+  cursor: pointer;
+}
+
+.key:hover {
+  outline: 1px solid colors.$grey;
+  color: colors.$black;
+}
+
+.key--primary {
+  background-color: colors.$mediumCarmine;
+}
+
+.key--secondary {
+  background-color: colors.$prussianBlue;
+}

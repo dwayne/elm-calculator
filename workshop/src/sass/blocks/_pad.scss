@@ -1,0 +1,68 @@
+@use "../colors";
+
+$pad-slot-width: 80px !default;
+$pad-slot-height: 65px !default;
+$pad-slot-spacing-around: 1px !default;
+
+$pad-width: 4 * $pad-slot-width + 5 * $pad-slot-spacing-around;
+$pad-height: 5 * $pad-slot-height + 6 * $pad-slot-spacing-around;
+
+.pad {
+  position: relative;
+
+  width: $pad-width;
+  height: $pad-height;
+
+  background-color: colors.$black;
+}
+
+.pad__slot {
+  position: absolute;
+
+  width: $pad-slot-width;
+  height: $pad-slot-height;
+}
+
+.pad__slot.r0 {
+  top: $pad-slot-spacing-around;
+}
+
+.pad__slot.r1 {
+  top: $pad-slot-height + 2 * $pad-slot-spacing-around;
+}
+
+.pad__slot.r2 {
+  top: 2 * $pad-slot-height + 3 * $pad-slot-spacing-around
+}
+
+.pad__slot.r3 {
+  top: 3 * $pad-slot-height + 4 * $pad-slot-spacing-around
+}
+
+.pad__slot.r4 {
+  top: 4 * $pad-slot-height + 5 * $pad-slot-spacing-around
+}
+
+.pad__slot.c0 {
+  left: $pad-slot-spacing-around;
+}
+
+.pad__slot.c1 {
+  left: $pad-slot-width + 2 * $pad-slot-spacing-around
+}
+
+.pad__slot.c2 {
+  left: 2 * $pad-slot-width + 3 * $pad-slot-spacing-around
+}
+
+.pad__slot.c3 {
+  left: 3 * $pad-slot-width + 4 * $pad-slot-spacing-around
+}
+
+.pad__slot.rowspan2 {
+  height: 2 * $pad-slot-height + $pad-slot-spacing-around
+}
+
+.pad__slot.colspan2 {
+  width: 2 * $pad-slot-width + $pad-slot-spacing-around
+}

@@ -1,0 +1,34 @@
+@use "../colors";
+@use "../typography";
+
+.display {
+  padding: 5px 5px 10px 5px;
+
+  font-family: typography.$digital;
+
+  text-align: right;
+  overflow-wrap: break-word;
+
+  background-color: colors.$black;
+}
+
+.display__line1:empty::before,
+.display__line2:empty::before {
+  content: "\00A0";
+}
+
+.display__line1 {
+  padding-bottom: 2px;
+
+  font-size: 1.25rem;
+  line-height: 1;
+
+  color: colors.$orange;
+}
+
+.display__line2 {
+  font-size: 1.875rem;
+  line-height: 1;
+
+  color: colors.$white;
+}

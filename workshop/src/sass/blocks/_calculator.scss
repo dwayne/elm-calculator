@@ -1,0 +1,16 @@
+@use "../colors";
+@use "./pad";
+
+.calculator {
+  display: inline-flex;
+  flex-direction: column;
+
+  border: 2px solid colors.$cornFlowerBlue;
+  padding: 3px;
+
+  background-color: colors.$black;
+}
+
+.calculator__display {
+  width: pad.$pad-width;
+}

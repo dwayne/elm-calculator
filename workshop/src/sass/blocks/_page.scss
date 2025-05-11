@@ -1,0 +1,9 @@
+@use "../layouts";
+
+.page {
+  @include layouts.absolute-center(20px);
+}
+
+.page__content {
+  @include layouts.centered-column(15px);
+}
