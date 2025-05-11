@@ -1,16 +1,31 @@
 ---
-import "../sass/index.scss";
----
+import Base from "../layouts/Base.astro";
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+import Key from "../blocks/Key.astro";
+---
+<style>
+.box {
+	--width: 80px;
+	--height: 65px;
+
+	width: var(--width);
+	height: var(--height);}
+</style>
+
+<Base title="Key">
+	<h2>Default</h2>
+
+  <h3>Unconstrained</h3>
+
+  <p>
+    <Key />
+  </p>
+
+  <h3>Constrained</h3>
+
+  <p>
+    <div class="box">
+      <Key />
+    </div>
+  </p>
+</Base>
